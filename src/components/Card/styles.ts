@@ -11,6 +11,8 @@ export const Container = styled.View`
   align-items: center;
   border-radius: 15px;
   background: #303035;
+  margin-top: ${RFValue(20)}px;
+
   ${Platform.select({
     ios: `
       shadow-color: #000;
