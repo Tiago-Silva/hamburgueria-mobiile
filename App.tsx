@@ -4,25 +4,12 @@ import { Buttom } from './src/components/Buttom';
 import { Input } from './src/components/Input';
 import { Card } from './src/components/Card';
 import { Category } from './src/components/Category';
+import { Products } from './src/screens/Products';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      {/* <Buttom 
-        backgroundColor='#F00'
-        borderColor='#000'
-        title='Realize o login antes'
-      />
-      <Input 
-        title='Seu nome'
-      /> */}
-      {/* <Card 
-        title='Miami'
-        amount={12.00}
-        urlImage={require('./assets/Frame39.png')}
-      /> */}
-
-      <Category />
+      <Products />
       <StatusBar style="auto" />
     </View>
   );
