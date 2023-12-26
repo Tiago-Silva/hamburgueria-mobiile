@@ -1,14 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { Buttom } from './src/components/Buttom';
+import { Input } from './src/components/Input';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Buttom 
-        title='Realize Login antes'
-        borderColor='#000'
-        backgroundColor='#F00'
+      <Input
+        title='Seu nome'
       />
       <StatusBar style="auto" />
     </View>
