@@ -1,10 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { Buttom } from './src/components/Buttom';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <Buttom 
+        title='Realize Login antes'
+        borderColor='#000'
+        backgroundColor='#F00'
+      />
       <StatusBar style="auto" />
     </View>
   );
