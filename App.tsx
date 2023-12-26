@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Buttom } from './src/components/Buttom';
 import { Input } from './src/components/Input';
 import { Card } from './src/components/Card';
+import { Category } from './src/components/Category';
 
 export default function App() {
   return (
@@ -15,11 +16,13 @@ export default function App() {
       <Input 
         title='Seu nome'
       /> */}
-      <Card 
+      {/* <Card 
         title='Miami'
         amount={12.00}
         urlImage={require('./assets/Frame39.png')}
-      />
+      /> */}
+
+      <Category />
       <StatusBar style="auto" />
     </View>
   );
