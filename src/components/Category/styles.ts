@@ -34,7 +34,10 @@ export const WrapperIcon = styled.TouchableOpacity<WrapperIconProps>`
   flex-shrink: 0; 
   border-radius: 10px;
   background: #FFF;
-  padding: ${RFValue(2)}px;;
+  padding: ${RFValue(2)}px;
+
+  transition: background-color 0.3s ease-in-out;
+  
   ${({ isSelected }) => isSelected && 'background-color: #F6C015;'};
 
   ${Platform.select({
