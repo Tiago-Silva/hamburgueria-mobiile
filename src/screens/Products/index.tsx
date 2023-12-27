@@ -1,11 +1,13 @@
 import { Card } from "../../components/Card";
 import { Category } from "../../components/Category";
+import { PromotionCard } from "../../components/PromotionCard";
 import { Container } from "./styles";
 
 
 export const Products = () => {
   return (
     <Container>
+      <PromotionCard />
       <Category />
       <Card 
         title="Miami"
