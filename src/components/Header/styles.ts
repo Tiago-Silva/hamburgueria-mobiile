@@ -2,44 +2,40 @@ import { Platform } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 
-interface WrapperIconProps {
-  isSelected: boolean;
-}
 
 export const Container = styled.View`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: ${RFValue(10)}px;;
-`;
-
-export const Title = styled.Text`
-  color: #000000;
-  font-weight: 700;
-  font-size: ${RFValue(20)}px;
-`;
-
-export const Footer = styled.View`
-  width: ${RFPercentage(20)}px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  padding: 10px 15px;
   margin-top: ${RFValue(20)}px;
+`
+
+export const WraperTitle = styled.View`
+  display: flex;
+  flex-direction: column;
 `;
 
-export const WrapperIcon = styled.TouchableOpacity<WrapperIconProps>`
+export const Title = styled.Text`
+  color: #FFE600;
+  font-size: ${RFValue(14)}px;
+  font-weight: 700;
+`;
+
+export const UserTitle = styled.Text`
+  font-size: ${RFValue(14)}px;
+  font-weight: 700;
+`;
+
+export const WraperIcon = styled.TouchableOpacity`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-shrink: 0; 
   border-radius: 10px;
-  background: #FFF;
+  background: #FFE600;
   padding: ${RFValue(2)}px;
-
-  transition: background-color 0.3s ease-in-out;
-  
-  ${({ isSelected }) => isSelected && 'background-color: #FFE600;'};
 
   ${Platform.select({
     ios: `
