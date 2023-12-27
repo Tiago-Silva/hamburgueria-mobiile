@@ -9,7 +9,8 @@ export const Container = styled.View`
   justify-content: center;
   align-items: center;
   background-color: #F6C015;
-  bottom: ${RFPercentage(-7.8)}px;
+  bottom: ${RFPercentage(0)}px;
+  position: absolute;
 `;
 
 export const Title = styled.Text`

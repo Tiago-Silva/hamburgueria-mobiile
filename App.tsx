@@ -6,7 +6,7 @@ import { Footer } from './src/components/Footer';
 
 export default function App() {
   return (
-    <View>
+    <View style={styles.container}>
       <StatusBar style="auto" />
       
       <Header />
@@ -22,8 +22,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // backgroundColor: '#fff',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
 });
