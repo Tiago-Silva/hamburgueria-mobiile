@@ -12,6 +12,7 @@ export const Container = styled.View`
   border-radius: 15px;
   background: #303035;
   margin-top: ${RFValue(20)}px;
+  margin-right: ${RFValue(20)}px;
 
   ${Platform.select({
     ios: `
@@ -34,7 +35,7 @@ export const Imagem = styled.Image`
 
 export const WrapperIcon = styled.TouchableOpacity`
   position: absolute;
-  top: -12%;
+  top: -10%;
   right: -10%;
   width: 30%;
   height: 30%;
@@ -43,9 +44,9 @@ export const WrapperIcon = styled.TouchableOpacity`
 export const IconAdd = styled.Image`
   position: absolute;
   /* top: -12%; */
-  right: -12%;
-  width: 90%;
-  height: 90%;
+  right: 0.1%;
+  width: 70%;
+  height: 70%;
 `;
 
 export const Title = styled.Text`

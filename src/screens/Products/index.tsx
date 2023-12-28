@@ -35,6 +35,41 @@ export const Products = () => {
       valor: 22.00,
       status: true,
       urlImage: require('../../../assets/Frame39.png')
+    },
+    {
+      idproduto: 4,
+      nome: 'Louisiana',
+      valor: 27.00,
+      status: true,
+      urlImage: require('.../../../assets/Frame39.png')
+    },
+    {
+      idproduto: 5,
+      nome: 'Washington',
+      valor: 17.00,
+      status: true,
+      urlImage: require('.../../../assets/Frame39.png')
+    },
+    {
+      idproduto: 6,
+      nome: 'Filadélfia',
+      valor: 22.00,
+      status: true,
+      urlImage: require('../../../assets/Frame39.png')
+    },
+    {
+      idproduto: 7,
+      nome: 'Texas',
+      valor: 22.00,
+      status: true,
+      urlImage: require('.../../../assets/Frame39.png')
+    },
+    {
+      idproduto: 8,
+      nome: 'Colorado',
+      valor: 30.00,
+      status: true,
+      urlImage: require('../../../assets/Frame39.png')
     }
   ];
 
@@ -56,6 +91,7 @@ export const Products = () => {
         data={data}
         keyExtractor={(item: Product) => item.idproduto}
         renderItem={renderItem}
+        numColumns={2}
       />
       
     </Container>

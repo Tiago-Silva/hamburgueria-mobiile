@@ -20,6 +20,6 @@ export const WrapperProductsList = styled(
 })`
   margin-top: ${RFPercentage(2)}px;
   margin-bottom: ${RFPercentage(3)}px;
-  margin-left: ${RFPercentage(34)}px;
+  margin-left: ${RFPercentage(8)}px;
   width: 100%;
 `;
