@@ -4,26 +4,34 @@ import { Products } from './src/screens/Products';
 import { Header } from './src/components/Header';
 import { Footer } from './src/components/Footer';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queyClient = new QueryClient();
+
 export default function App() {
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
+    <QueryClientProvider client={queyClient}>
       
-      <Header />
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+        
+        <Header />
 
-      <Products />
+        <Products />
 
-      <Footer />
+        <Footer />
 
-    </View>
+      </View>
+
+    </QueryClientProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    margin: 0
   },
 });
