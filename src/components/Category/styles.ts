@@ -39,7 +39,7 @@ export const WrapperIcon = styled.TouchableOpacity<WrapperIconProps>`
 
   transition: background-color 0.3s ease-in-out;
   
-  ${({ isSelected }) => isSelected && 'background-color: #FFE600;'};
+  ${({ isSelected }: WrapperIconProps) => isSelected && 'background-color: #FFE600;'};
 
   ${Platform.select({
     ios: `
