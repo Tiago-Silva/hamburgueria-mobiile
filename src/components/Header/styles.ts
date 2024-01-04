@@ -2,6 +2,7 @@ import { Platform, TouchableOpacity } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 import { Feather } from '@expo/vector-icons';
+import { BorderlessButton } from "react-native-gesture-handler";
 
 
 export const Container = styled.View`
@@ -66,7 +67,7 @@ export const UserName = styled.Text`
   font-size: ${RFValue(18)}px;
 `;
 
-export const LogoutButton = styled(TouchableOpacity)`
+export const LogoutButton = styled(BorderlessButton)`
 
 `;
 

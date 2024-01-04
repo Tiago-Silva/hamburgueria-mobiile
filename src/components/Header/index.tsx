@@ -23,7 +23,7 @@ export const Header = () => {
           <UserName>Alonsão Novães</UserName>
         </User>
         </UserInfo>
-        <LogoutButton>
+        <LogoutButton onPress={() => {}}>
           <Icon name='power' />
         </LogoutButton>
 

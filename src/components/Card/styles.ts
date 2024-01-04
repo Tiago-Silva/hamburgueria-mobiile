@@ -1,8 +1,7 @@
-import { Platform } from "react-native";
+import { Platform, TouchableOpacity } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 import { Ionicons } from '@expo/vector-icons';
-
 
 export const Container = styled.View`
   width: ${RFPercentage(20)}px;
@@ -34,7 +33,7 @@ export const Imagem = styled.Image`
   flex-shrink: 0;
 `;
 
-export const WrapperIcon = styled.TouchableOpacity`
+export const WrapperIcon = styled(TouchableOpacity)`
   position: absolute;
   width: 100%;
   display: flex;

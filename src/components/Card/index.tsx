@@ -21,7 +21,7 @@ export const Card = ({
 }: Props) => {
   return (
     <Container>
-      <WrapperIcon>
+      <WrapperIcon onPress={() => {}}>
         <IconAdd 
           name='add-circle'
           size={24}
