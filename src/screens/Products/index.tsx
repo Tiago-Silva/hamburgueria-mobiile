@@ -3,12 +3,12 @@ import { Card } from "../../components/Card";
 import { Category } from "../../components/Category";
 import { Container, WrapperProductsList } from "./styles";
 import { useEffect, useState } from "react";
-import { userProdctData } from "../../hooks/useProductData";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ProductData } from "../../interface/ProductData";
 import { Header } from "../../components/Header";
 import { HighLightCards } from "../../components/HighLightCard/styles";
 import { HighLightCard } from "../../components/HighLightCard";
-import { productService } from "../../services/productService"; 
+import { productService } from "../../services/productService";
 
 const imagePaths: Record<string, ImageSourcePropType> = {
   Frame39: require("../../../assets/Frame39.png"),
@@ -21,16 +21,31 @@ export const Products = () => {
 
   const fetchProductData = async (category: string) => {
     try {
+      console.log('consultando');
       const response = await productService.getProductsByCategory(idEstabelecimento, category);
       setProductList(response.data);
+      await AsyncStorage.setItem('productsCategory/' + category, JSON.stringify(response.data));
     } catch (error) {
       console.error('Error: ', error);
     }
   };
 
+  const retrieveProductsData = async (category: string) => {
+    try {
+      const storedData = await AsyncStorage.getItem('productsCategory/' + category);
+      if (storedData !== null) {
+        setProductList(JSON.parse(storedData));
+      } else {
+        fetchProductData(category);
+      }
+    } catch (error) {
+      console.error('Erro ao recuperar dados do AsyncStorage:', error);
+    }
+  };
+
   useEffect(() => {
-    fetchProductData('snacks');
-  }, [])
+    retrieveProductsData('snacks');
+  }, []);
 
   const renderItem = ({ item }: ListRenderItemInfo<ProductData>) => {
     return (
@@ -68,7 +83,7 @@ export const Products = () => {
       </HighLightCards>
 
       <Category 
-        handleCategorySelected={fetchProductData}
+        handleCategorySelected={retrieveProductsData}
       />
 
       <WrapperProductsList 
