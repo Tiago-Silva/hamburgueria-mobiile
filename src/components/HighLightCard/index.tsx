@@ -1,12 +1,12 @@
 import { ImageSourcePropType } from "react-native";
 import { 
   Amount, 
-  Card, 
   Container, 
   FooterCard, 
   IconAdd, 
   Imagem, 
   Title, 
+  WrapperContent, 
   WrapperIcon 
 } from "./styles";
 
@@ -23,10 +23,14 @@ export function  HighLightCard({
 }:Props) {
   return (
     <Container>
-      <Card>
+      <WrapperContent>
         <WrapperIcon>
-          <IconAdd source={require('../../../assets/Add.png')} />
+          <IconAdd 
+            name='plus-circle'
+            size={24}
+          />
         </WrapperIcon>
+
         <Imagem source={urlImage} />
 
         <FooterCard>
@@ -39,7 +43,7 @@ export function  HighLightCard({
           </Amount>
 
         </FooterCard>
-      </Card>
+      </WrapperContent>
     </Container>
   );
 };
