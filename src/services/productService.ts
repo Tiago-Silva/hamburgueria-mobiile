@@ -4,12 +4,20 @@ import { ProductData } from "../interface/ProductData";
 
 
 
-export const productService ={
+export const productService = {
 
   getProductsByIdEstablisment: async (
     idestabelecimento: number
-  ): Promise<AxiosResponse<ProductData>> => {
+  ): Promise<AxiosResponse<ProductData[]>> => {
     const response = await axios.get('/produto/getProdutos/' + idestabelecimento);
+    return response;
+  },
+
+  getProductsByCategory: async (
+    idestabelecimento: number,
+    category: string
+  ): Promise<AxiosResponse<ProductData[]>> => {
+    const response = await axios.get('/produto/getProdutos/' + idestabelecimento + '/' + category);
     return response;
   }
 }

@@ -2,12 +2,13 @@ import { Alert, ImageSourcePropType, ListRenderItemInfo } from "react-native";
 import { Card } from "../../components/Card";
 import { Category } from "../../components/Category";
 import { Container, WrapperProductsList } from "./styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { userProdctData } from "../../hooks/useProductData";
 import { ProductData } from "../../interface/ProductData";
 import { Header } from "../../components/Header";
 import { HighLightCards } from "../../components/HighLightCard/styles";
 import { HighLightCard } from "../../components/HighLightCard";
+import { productService } from "../../services/productService"; 
 
 const imagePaths: Record<string, ImageSourcePropType> = {
   Frame39: require("../../../assets/Frame39.png"),
@@ -16,15 +17,20 @@ const imagePaths: Record<string, ImageSourcePropType> = {
 export const Products = () => {
 
   const [idEstabelecimento, setIdEstabelecimento] = useState<number>(1);
+  const [productList, setProductList] = useState<ProductData[]>([]);
 
-  const { data: productList, refetch, isLoading, error, }  = userProdctData(
-    idEstabelecimento
-  );
+  const fetchProductData = async (category: string) => {
+    try {
+      const response = await productService.getProductsByCategory(idEstabelecimento, category);
+      setProductList(response.data);
+    } catch (error) {
+      console.error('Error: ', error);
+    }
+  };
 
-  if (error) {
-    console.log(error);
-    return Alert.alert('Error:', error.message);
-  }
+  useEffect(() => {
+    fetchProductData('snacks');
+  }, [])
 
   const renderItem = ({ item }: ListRenderItemInfo<ProductData>) => {
     return (
@@ -61,7 +67,9 @@ export const Products = () => {
         
       </HighLightCards>
 
-      <Category />
+      <Category 
+        handleCategorySelected={fetchProductData}
+      />
 
       <WrapperProductsList 
         data={productList || []}

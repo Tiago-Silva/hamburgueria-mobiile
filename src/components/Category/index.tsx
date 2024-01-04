@@ -1,14 +1,20 @@
 import { Container, Footer, Icon, Title, WrapperIcon } from "./styles";
 import { useState } from "react";
 
+interface Props {
+  handleCategorySelected: (category: string) => void;
+}
 
-
-export const Category = () => {
-  const [category, setCategory] = useState('');
+export const Category = ({
+  handleCategorySelected
+}: Props) => {
+  const [category, setCategory] = useState('snacks');
 
   const handleOnPress = (category: string) => {
     setCategory(category);
+    handleCategorySelected(category);
   };
+  
   return (
     <Container>
       <Title>Categorias</Title>

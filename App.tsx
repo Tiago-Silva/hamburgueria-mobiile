@@ -1,7 +1,5 @@
 import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import { Products } from './src/screens/Products';
-import { Header } from './src/components/Header';
-import { Footer } from './src/components/Footer';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
@@ -17,11 +15,7 @@ export default function App() {
           barStyle="light-content"
         />
         
-        {/* <Header /> */}
-
         <Products />
-
-        {/* <Footer /> */}
 
       </View>
 
