@@ -10,7 +10,7 @@ export const Container = styled.View`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: ${RFValue(10)}px;;
+  margin-top: ${RFValue(80)}px;;
 `;
 
 export const Title = styled.Text`

@@ -1,41 +1,45 @@
-import { Platform } from "react-native";
+import { Platform, TouchableOpacity } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
+import { Feather } from '@expo/vector-icons';
 
 
 export const Container = styled.View`
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 10px 15px;
-  margin-top: ${RFValue(20)}px;
-`
+  height: ${RFPercentage(30)}px;
+  top: 0;
 
-export const WraperTitle = styled.View`
-  display: flex;
-  flex-direction: column;
-`;
+  background-color: #5636D3;
 
-export const Title = styled.Text`
-  color: #FFE600;
-  font-size: ${RFValue(14)}px;
-  font-weight: 700;
-`;
-
-export const UserTitle = styled.Text`
-  font-size: ${RFValue(14)}px;
-  font-weight: 700;
-`;
-
-export const WraperIcon = styled.TouchableOpacity`
-  display: flex;
   justify-content: center;
-  align-items: center;
-  flex-shrink: 0; 
+  align-items: flex-start;
+  flex-direction: row;
+`;
+
+export const UserWrapper = styled.View`
+    width: 100%;
+    padding: 0 24px;
+    margin-top: ${RFValue(28)}px;
+
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+export const UserInfo = styled.View`
+    flex-direction: row;
+    align-items: center;
+`;
+
+export const Photo = styled.Image`
+  width: ${RFValue(48)}px;
+  height: ${RFValue(48)}px;
+  
   border-radius: 10px;
-  background: #FFE600;
-  padding: ${RFValue(2)}px;
+`;
+
+export const User = styled.View`
+  margin-left: 17px;
 
   ${Platform.select({
     ios: `
@@ -50,7 +54,23 @@ export const WraperIcon = styled.TouchableOpacity`
   })}
 `;
 
-export const Icon = styled.Image`
-  width: ${RFPercentage(4)}px;
-  height: ${RFPercentage(4)}px;
+export const UserGreeting = styled.Text`
+  color: #FFE600;
+  font-weight: 700;
+
+  font-size: ${RFValue(18)}px;
+`;
+
+export const UserName = styled.Text`
+  color: #FFE600;
+  font-size: ${RFValue(18)}px;
+`;
+
+export const LogoutButton = styled(TouchableOpacity)`
+
+`;
+
+export const Icon = styled(Feather)`
+    color: #FFE600;
+    font-size: ${RFValue(18)}px;
 `;

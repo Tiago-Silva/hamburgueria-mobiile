@@ -1,23 +1,33 @@
 import { 
   Container, 
   Icon, 
-  Title,
-  UserTitle, 
-  WraperIcon, 
-  WraperTitle 
+  LogoutButton, 
+  Photo, 
+  User,
+  UserGreeting,
+  UserInfo,
+  UserName,
+  UserWrapper, 
 } from "./styles";
 
 export const Header = () => {
   return (
     <Container>
-      <WraperTitle>
-        <Title>Olá</Title>
-        <UserTitle>Alonsão Novães</UserTitle>
-      </WraperTitle>
+      <UserWrapper>
+        <UserInfo>
+          <Photo 
+            source={{ uri: 'https://avatars.githubusercontent.com/u/9256219?v=4' }}
+          />
+        <User>
+          <UserGreeting>Olá</UserGreeting>
+          <UserName>Alonsão Novães</UserName>
+        </User>
+        </UserInfo>
+        <LogoutButton>
+          <Icon name='power' />
+        </LogoutButton>
 
-      <WraperIcon>
-        <Icon source={require('../../../assets/User.png')}/>
-      </WraperIcon>
+      </UserWrapper>
     </Container>
   );
 }

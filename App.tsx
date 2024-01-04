@@ -1,5 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import { Products } from './src/screens/Products';
 import { Header } from './src/components/Header';
 import { Footer } from './src/components/Footer';
@@ -13,13 +12,16 @@ export default function App() {
     <QueryClientProvider client={queyClient}>
       
       <View style={styles.container}>
-        <StatusBar style="auto" />
+        <StatusBar 
+          backgroundColor='#5636D3'
+          barStyle="light-content"
+        />
         
-        <Header />
+        {/* <Header /> */}
 
         <Products />
 
-        <Footer />
+        {/* <Footer /> */}
 
       </View>
 
@@ -32,6 +34,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
+    backgroundColor: '#F0F2F5',
     margin: 0
   },
 });

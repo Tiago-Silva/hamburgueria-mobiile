@@ -5,12 +5,20 @@ import { ProductData } from "../../interface/ProductData";
 
 export const Container = styled.View`
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   height: ${RFPercentage(100)}px;
-  /* width: ${RFPercentage(100)}px; */
-  /* max-width: 100%; */
-  /* max-height: 100%; */
+`;
+
+export const Header = styled.View`
+    width: 100%;
+    height: ${RFPercentage(30)}px;
+
+    background-color: #5636D3;
+
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: row;
 `;
 
 export const WrapperProductsList = styled(
