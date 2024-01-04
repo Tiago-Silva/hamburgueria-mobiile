@@ -38,8 +38,11 @@ export const Products = () => {
 
   return (
     <Container>
+
       <Header />
+
       <HighLightCards>
+
         <HighLightCard 
           title="2 Miami"
           amount={24.00}
@@ -55,9 +58,11 @@ export const Products = () => {
           amount={24.00}
           urlImage={require('../../../assets/snack.jpg')}
         />
+        
       </HighLightCards>
 
       <Category />
+
       <WrapperProductsList 
         data={productList || []}
         keyExtractor={(item: ProductData) => item.idproduto}

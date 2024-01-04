@@ -30,7 +30,7 @@ export const WrapperProductsList = styled(
   }
 })`
   margin-top: ${RFPercentage(2)}px;
-  margin-bottom: ${RFPercentage(13)}px;
+  margin-bottom: ${RFPercentage(0.2)}px;
   margin-left: ${RFPercentage(8)}px;
   width: 100%;
 `;
