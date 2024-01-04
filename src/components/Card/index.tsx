@@ -22,7 +22,10 @@ export const Card = ({
   return (
     <Container>
       <WrapperIcon>
-        <IconAdd source={require('../../../assets/Add.png')} />
+        <IconAdd 
+          name='add-circle'
+          size={24}
+        />
       </WrapperIcon>
       <Imagem source={urlImage} />
       <Title>{title}</Title>

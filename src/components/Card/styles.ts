@@ -1,6 +1,7 @@
 import { Platform } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
+import { Ionicons } from '@expo/vector-icons';
 
 
 export const Container = styled.View`
@@ -35,18 +36,18 @@ export const Imagem = styled.Image`
 
 export const WrapperIcon = styled.TouchableOpacity`
   position: absolute;
-  top: -10%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  top: -7%;
   right: -10%;
-  width: 30%;
-  height: 30%;
 `;
 
-export const IconAdd = styled.Image`
+export const IconAdd = styled(Ionicons)`
   position: absolute;
-  /* top: -12%; */
-  right: 0.1%;
-  width: 70%;
-  height: 70%;
+  color: #F6C015;
+  right: 3%;
 `;
 
 export const Title = styled.Text`

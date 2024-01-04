@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components/native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import { Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { Platform } from "react-native";
 
 export const Container = styled.View`
@@ -61,7 +61,7 @@ export const WrapperIcon = styled.TouchableOpacity`
   z-index: 1;
 `;
 
-export const IconAdd = styled(Feather)`
+export const IconAdd = styled(Ionicons)`
   position: absolute;
   color: #F6C015;
 `;

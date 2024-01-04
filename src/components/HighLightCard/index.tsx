@@ -26,7 +26,7 @@ export function  HighLightCard({
       <WrapperContent>
         <WrapperIcon>
           <IconAdd 
-            name='plus-circle'
+            name='add-circle'
             size={24}
           />
         </WrapperIcon>
