@@ -1,11 +1,11 @@
 import { Container, Footer, Icon, Title, WrapperIcon } from "./styles";
-import { useState } from "react";
+import React, { useState } from "react";
 
 interface Props {
   handleCategorySelected: (category: string) => void;
 }
 
-export const Category = ({
+export const Category = React.memo(({
   handleCategorySelected
 }: Props) => {
   const [category, setCategory] = useState('snacks');
@@ -40,4 +40,4 @@ export const Category = ({
       </Footer>
     </Container>
   );
-}
+});

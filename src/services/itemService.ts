@@ -37,8 +37,8 @@ export const itemService = {
         // Se encontrar um item com o mesmo idproduto, substitui o item existente pelo novo
         itemsArray[indexEncontrado] = {
           ...itemsArray[indexEncontrado],
-          total: itemsArray[indexEncontrado].total + item.total,
           quantidade: itemsArray[indexEncontrado].quantidade + item.quantidade,
+          total: itemsArray[indexEncontrado].quantidade * itemsArray[indexEncontrado].valor,
         };
 
       } else {
@@ -57,6 +57,47 @@ export const itemService = {
     } catch (error) {
       return null;
       console.error('Erro ao recuperar dados do AsyncStorage:', error);
+    }
+  },
+
+  retrieveItemObject: async (idproduto: number): Promise<ItemData> => {
+    const storedData = await AsyncStorage.getItem('itemList');
+    let itemsArray: ItemData[] = [];
+
+    if (storedData !== null) {
+      itemsArray = JSON.parse(storedData);
+    }
+
+    const item = itemsArray.find(data => data.idproduto === idproduto);
+
+    if (!item) {
+      throw new Error('Item não encontrado');
+    }
+
+    return item;
+  },
+
+  retrieveItemList: async () => {
+    try {
+      const storedData = await AsyncStorage.getItem('itemList');
+      let itemsArray: ItemData[] = [];
+  
+      if (storedData !== null) {
+        itemsArray = JSON.parse(storedData);
+      }
+
+      return itemsArray;
+    } catch (error) {
+      console.error('Erro ao recuperar dados do AsyncStorage:', error);
+      return [];
+    }
+  },
+
+  deleteItemData: async () => {
+    try {
+      await AsyncStorage.removeItem('itemList');
+    } catch (error) {
+      console.error('Erro ao excluir dados do AsyncStorage: ', error);
     }
   }
 

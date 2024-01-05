@@ -8,8 +8,7 @@ import {
   Total, 
   WrapperIcon
 } from "./styles";
-import { useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
 import { ItemData } from "../../interface/Item";
 import { itemService } from '../../services/itemService';
 
@@ -34,8 +33,21 @@ export const Card = ({
     const newItem: ItemData = itemService.creationItem(1, descricao, amount, 1, idproduto);
     const retrievedItem: ItemData | null = await itemService.retrieveItemData(newItem);
   
-    setTotal(retrievedItem?.total || 0);
+    setTotal(retrievedItem?.quantidade || 0);
   };
+
+  useEffect(() => {
+    const fetchItem = async () => {
+      try {
+        const newItem: ItemData = await itemService.retrieveItemObject(idproduto);
+        setTotal(newItem?.quantidade);
+      } catch (error) {
+        // console.error('Erro ao recuperar o item: ', error);
+      }
+    };
+  
+    fetchItem();
+  }, []);
 
   return (
     <Container>

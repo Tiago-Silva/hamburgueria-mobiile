@@ -3,10 +3,41 @@ import { Products } from './src/screens/Products';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const queyClient = new QueryClient();
 
 export default function App() {
+  const [isAppReady, setIsAppReady] = useState(false);
+
+  useEffect(() => {
+    prepareApp();
+  }, []);
+
+  const prepareApp = async () => {
+    try {
+      const flag = await AsyncStorage.getItem('operationDone');
+
+      if (!flag) {
+        await AsyncStorage.removeItem('itemList');
+
+        await AsyncStorage.setItem('operationDone', 'true');
+
+      } else {
+        console.log('Operação já realizada anteriormente.');
+      }
+
+      setIsAppReady(true);
+    } catch (error) {
+      console.error('Erro ao realizar a operação no AsyncStorage:', error);
+    }
+  };
+
+  if (!isAppReady) {
+    return null;
+  }
+
   return (
     <QueryClientProvider client={queyClient}>
 
