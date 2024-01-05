@@ -8,7 +8,7 @@ import {
   Total, 
   WrapperIcon
 } from "./styles";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ItemData } from "../../interface/Item";
 import { itemService } from '../../services/itemService';
 
@@ -20,7 +20,7 @@ interface Props {
   descricao: string;
 }
 
-export const Card = ({
+export const Card = React.memo (({
   idproduto,
   title,
   amount,
@@ -70,4 +70,4 @@ export const Card = ({
       </Amount>
     </Container>
   );
-}
+});

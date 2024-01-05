@@ -9,6 +9,7 @@ import {
   WrapperContent, 
   WrapperIcon 
 } from "./styles";
+import React from "react";
 
 interface Props {
   title: string;
@@ -16,11 +17,11 @@ interface Props {
   urlImage: ImageSourcePropType,
 }
 
-export function  HighLightCard({
+export const  HighLightCard = React.memo (({
   title,
   amount,
   urlImage
-}:Props) {
+}:Props) => {
   return (
     <Container>
       <WrapperContent>
@@ -46,4 +47,4 @@ export function  HighLightCard({
       </WrapperContent>
     </Container>
   );
-};
+});

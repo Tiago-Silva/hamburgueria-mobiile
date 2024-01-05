@@ -3,6 +3,7 @@ import {
   Container, 
   Title } 
 from "./styles";
+import React from "react";
 
 interface Props extends TouchableOpacityProps {
   title: string;
@@ -10,7 +11,7 @@ interface Props extends TouchableOpacityProps {
   backgroundColor: string;
 }
 
-export const Buttom = ({
+export const Buttom = React.memo (({
   title,
   borderColor,
   backgroundColor,
@@ -25,4 +26,4 @@ export const Buttom = ({
       <Title>{title}</Title>
     </Container>
   );
-}
+});

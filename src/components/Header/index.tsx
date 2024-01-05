@@ -1,3 +1,4 @@
+import React from "react";
 import { 
   Container, 
   Icon, 
@@ -10,7 +11,7 @@ import {
   UserWrapper, 
 } from "./styles";
 
-export const Header = () => {
+export const Header = React.memo (() => {
   return (
     <Container>
       <UserWrapper>
@@ -30,4 +31,4 @@ export const Header = () => {
       </UserWrapper>
     </Container>
   );
-}
+});

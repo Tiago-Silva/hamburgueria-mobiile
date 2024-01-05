@@ -1,3 +1,4 @@
+import React from "react";
 import { 
   Container, 
   Line, 
@@ -11,7 +12,7 @@ interface Props extends TextInputProps {
   title: string;
 }
 
-export const Input = ({
+export const Input = React.memo (({
   title,
   ...rest
 }: Props) => {
@@ -22,4 +23,4 @@ export const Input = ({
       <Line />
     </Container>
   );
-}
+});
