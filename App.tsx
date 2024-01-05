@@ -14,7 +14,7 @@ export default function App() {
 
         <View style={styles.container}>
           <StatusBar 
-            backgroundColor='#5636D3'
+            backgroundColor='#2a2e34'
             barStyle="light-content"
           />
           

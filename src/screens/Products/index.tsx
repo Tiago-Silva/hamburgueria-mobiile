@@ -53,6 +53,8 @@ export const Products = () => {
         title={item.nome}
         amount={item.valor}
         urlImage={imagePaths[item.urlImage]}
+        idproduto={item.idproduto}
+        descricao={item.descricao}
       />
     );
   };

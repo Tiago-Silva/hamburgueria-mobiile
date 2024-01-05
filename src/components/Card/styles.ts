@@ -38,7 +38,7 @@ export const WrapperIcon = styled(TouchableOpacity)`
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   top: -7%;
   right: -10%;
 `;
@@ -47,6 +47,13 @@ export const IconAdd = styled(Ionicons)`
   position: absolute;
   color: #F6C015;
   right: 3%;
+`;
+
+export const Total = styled.Text`
+  color: #F6C015;
+  font-size: ${RFValue(18)}px;
+  font-weight: 700;
+  right: 60%;
 `;
 
 export const Title = styled.Text`

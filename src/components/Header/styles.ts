@@ -10,7 +10,7 @@ export const Container = styled.View`
   height: ${RFPercentage(30)}px;
   top: 0;
 
-  background-color: #5636D3;
+  background-color: #2a2e34;
 
   justify-content: center;
   align-items: flex-start;
