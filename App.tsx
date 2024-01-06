@@ -1,12 +1,12 @@
 import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import { Products } from './src/screens/Products';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NavigationContainer } from '@react-navigation/native';
+import { AppRoutes } from './src/routes/app.routes';
 
-const queyClient = new QueryClient();
 
 export default function App() {
   const [isAppReady, setIsAppReady] = useState(false);
@@ -41,23 +41,23 @@ export default function App() {
   }
 
   return (
-    <QueryClientProvider client={queyClient}>
+    
+    <GestureHandlerRootView style={{ flex: 1 }}>
 
-      <GestureHandlerRootView style={{ flex: 1 }}>
+      <StatusBar 
+        backgroundColor='#2a2e34'
+        barStyle="light-content"
+      />
 
-        <View style={styles.container}>
-          <StatusBar 
-            backgroundColor='#2a2e34'
-            barStyle="light-content"
-          />
+      <NavigationContainer>
+
+        <AppRoutes />
           
-          <Products />
+      </NavigationContainer>
 
-        </View>
 
-      </GestureHandlerRootView>
+    </GestureHandlerRootView>
 
-    </QueryClientProvider>
   );
 }
 
@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: '#F0F2F5',
-    margin: 0
+    margin: 0,
+    padding: 0
   },
 });

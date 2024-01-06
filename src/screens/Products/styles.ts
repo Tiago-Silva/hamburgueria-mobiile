@@ -8,6 +8,7 @@ export const Container = styled.View`
   /* justify-content: center; */
   align-items: center;
   height: ${RFPercentage(100)}px;
+  background-color: #F0F2F5;
 `;
 
 export const Header = styled.View`
@@ -30,7 +31,7 @@ export const WrapperProductsList = styled(
   }
 })`
   margin-top: ${RFPercentage(2)}px;
-  margin-bottom: ${RFPercentage(0.2)}px;
+  margin-bottom: ${RFPercentage(6)}px;
   margin-left: ${RFPercentage(8)}px;
   width: 100%;
 `;
