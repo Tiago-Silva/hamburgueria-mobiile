@@ -1,3 +1,4 @@
+import { ImageSourcePropType } from "react-native";
 
 
 export interface ItemData {
@@ -8,4 +9,5 @@ export interface ItemData {
   total: number;
   idproduto: number;
   idpedido?: number;
+  urlImage: ImageSourcePropType;
 }

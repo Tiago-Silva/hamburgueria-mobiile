@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ItemData } from "../interface/Item";
+import { ImageSourcePropType } from "react-native";
 
 
 export const itemService = {
@@ -9,7 +10,8 @@ export const itemService = {
     descricao: string,
     valor: number,
     total: number,
-    idproduto: number
+    idproduto: number,
+    urlImage: ImageSourcePropType
   ): ItemData => {
     return {
       iditem: undefined,
@@ -19,6 +21,7 @@ export const itemService = {
       total: total,
       idproduto: idproduto,
       idpedido: undefined,
+      urlImage: urlImage
     }
   },
 

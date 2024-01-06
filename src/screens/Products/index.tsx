@@ -13,6 +13,8 @@ import { productService } from "../../services/productService";
 const imagePaths: Record<string, ImageSourcePropType> = {
   Frame39: require("../../../assets/Frame39.png"),
   Promotion: require("../../../assets/snack.jpg"),
+  Coca: require("../../../assets/coca-cola.png"),
+  Shake: require("../../../assets/Milk-shake.png"),
 };
 
 export const Products = () => {
