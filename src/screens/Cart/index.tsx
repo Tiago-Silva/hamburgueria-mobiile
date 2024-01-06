@@ -1,8 +1,7 @@
 import React from "react";
-import { Container } from "./styles";
+import { Container, Header, Title } from "./styles";
 import { Card } from "../../components/Card";
 import { ImageSourcePropType } from "react-native";
-import { Header } from "../../components/Header";
 
 const imagePaths: Record<string, ImageSourcePropType> = {
   Frame39: require("../../../assets/Frame39.png"),
@@ -13,7 +12,10 @@ export const Cart = () => {
   return (
     <Container>
 
-      <Header />
+      <Header>
+        <Title>Confira os produtos do</Title>
+        <Title>Carrinho</Title>
+      </Header>
 
       <Card 
         title="Carrinho"
