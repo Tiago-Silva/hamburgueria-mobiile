@@ -4,6 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from 'styled-components';
 import { Products } from '../screens/Products';
+import { Cart } from '../screens/Cart';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -58,7 +59,7 @@ export function AppRoutes() {
 
       <Screen 
         name='Carrinho'
-        component={Products}
+        component={Cart}
         options={
           {
             tabBarIcon: (({ size, color }) =>
