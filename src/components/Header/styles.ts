@@ -10,7 +10,7 @@ export const Container = styled.View`
   height: ${RFPercentage(30)}px;
   top: 0;
 
-  background-color: #2a2e34;
+  background-color: ${({ theme }) => theme.colors.background_header};
 
   justify-content: center;
   align-items: flex-start;
@@ -56,14 +56,14 @@ export const User = styled.View`
 `;
 
 export const UserGreeting = styled.Text`
-  color: #FFE600;
+  color: ${({ theme }) => theme.colors.title};
   font-weight: 700;
 
   font-size: ${RFValue(18)}px;
 `;
 
 export const UserName = styled.Text`
-  color: #FFE600;
+  color: ${({ theme }) => theme.colors.title};
   font-size: ${RFValue(18)}px;
 `;
 
@@ -72,6 +72,6 @@ export const LogoutButton = styled(BorderlessButton)`
 `;
 
 export const Icon = styled(Feather)`
-    color: #FFE600;
+    color: ${({ theme }) => theme.colors.title};
     font-size: ${RFValue(18)}px;
 `;

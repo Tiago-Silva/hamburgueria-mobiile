@@ -1,6 +1,6 @@
 import { Platform } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 
 interface WrapperIconProps {
   isSelected: boolean;
@@ -14,7 +14,7 @@ export const Container = styled.View`
 `;
 
 export const Title = styled.Text`
-  color: #000000;
+  color: ${({ theme }) => theme.colors.text_dark};
   font-weight: 700;
   font-size: ${RFValue(20)}px;
 `;
@@ -34,12 +34,16 @@ export const WrapperIcon = styled.TouchableOpacity<WrapperIconProps>`
   align-items: center;
   flex-shrink: 0; 
   border-radius: 10px;
-  background: #FFF;
+  background: ${({ theme }) => theme.colors.shape};
   padding: ${RFValue(2)}px;
 
   transition: background-color 0.3s ease-in-out;
   
-  ${({ isSelected }: WrapperIconProps) => isSelected && 'background-color: #FFE600;'};
+  ${({ isSelected }: WrapperIconProps) => 
+    isSelected && css`
+      background-color: ${({ theme }) => theme.colors.title};
+    ` 
+  };
 
   ${Platform.select({
     ios: `

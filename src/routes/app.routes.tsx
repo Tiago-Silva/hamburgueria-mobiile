@@ -14,7 +14,7 @@ export function AppRoutes() {
       screenOptions={
         {
           headerShown: false,
-          tabBarActiveTintColor: '#FF872C',
+          tabBarActiveTintColor: '#F6C015',
           tabBarInactiveTintColor: '#969cB2',
           tabBarLabelPosition: 'beside-icon',
           tabBarStyle: {

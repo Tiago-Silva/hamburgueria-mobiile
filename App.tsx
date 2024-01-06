@@ -1,11 +1,12 @@
-import { StatusBar, StyleSheet, Text, View } from 'react-native';
-import { Products } from './src/screens/Products';
+import React, { useEffect, useState } from 'react';
+import { StatusBar, StyleSheet } from 'react-native';
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppRoutes } from './src/routes/app.routes';
+import { ThemeProvider } from 'styled-components';
+import theme from './src/global/theme';
 
 
 export default function App() {
@@ -41,22 +42,27 @@ export default function App() {
   }
 
   return (
+
+    <ThemeProvider theme={theme}>
+
+      <GestureHandlerRootView style={{ flex: 1 }}>
+
+        <StatusBar 
+          backgroundColor='#2a2e34'
+          barStyle="light-content"
+        />
+
+        <NavigationContainer>
+
+          <AppRoutes />
+            
+        </NavigationContainer>
+
+
+      </GestureHandlerRootView>
+
+    </ThemeProvider>
     
-    <GestureHandlerRootView style={{ flex: 1 }}>
-
-      <StatusBar 
-        backgroundColor='#2a2e34'
-        barStyle="light-content"
-      />
-
-      <NavigationContainer>
-
-        <AppRoutes />
-          
-      </NavigationContainer>
-
-
-    </GestureHandlerRootView>
 
   );
 }

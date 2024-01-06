@@ -12,7 +12,7 @@ export const Title = styled.Text`
   display: flex;
   justify-content: flex-start;
   font-size: ${RFValue(14)}px;
-  color: #F6C015;
+  color: ${({ theme }) => theme.colors.text};
   font-weight: 700;
 `;
 
@@ -29,5 +29,5 @@ export const TextInput = styled.TextInput`
 export const Line = styled.View`
   width: 100%;
   height: 1px;
-  background-color: #F6C015;
+  background-color: ${({ theme }) => theme.colors.text};
 `;

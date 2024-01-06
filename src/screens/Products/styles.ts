@@ -8,7 +8,7 @@ export const Container = styled.View`
   /* justify-content: center; */
   align-items: center;
   height: ${RFPercentage(100)}px;
-  background-color: #F0F2F5;
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 export const Header = styled.View`

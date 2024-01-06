@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Platform } from "react-native";
 
 export const Container = styled.View`
-  background-color: #30353c;
+  background-color: ${({ theme }) => theme.colors.background_promotion};
 
   width: ${RFValue(300)}px;
   border-radius: 5px;
@@ -22,7 +22,7 @@ export const WrapperContent = styled.View`
   justify-content: center;
   align-items: center;
   border-radius: 15px;
-  background: #30353c;
+  background: ${({ theme }) => theme.colors.background_promotion};
 
   ${Platform.select({
   ios: `
@@ -63,24 +63,24 @@ export const WrapperIcon = styled.TouchableOpacity`
 
 export const IconAdd = styled(Ionicons)`
   position: absolute;
-  color: #F6C015;
+  color: ${({ theme }) => theme.colors.text};
   right: 0.5%;
 `;
 
 export const Quantidade = styled.Text`
-  color: #F6C015;
+  color: ${({ theme }) => theme.colors.text};
   font-size: ${RFValue(18)}px;
   font-weight: 700;
   right: -3%;
 `;
 
 export const Title = styled.Text`
-  color: #FFFFFF;
+  color: ${({ theme }) => theme.colors.shape};
   font-size: ${RFValue(14)}px;
 `;
 
 export const Amount = styled.Text`
-  color: #F6C015;
+  color: ${({ theme }) => theme.colors.text};
   font-size: ${RFValue(14)}px;
 `;
 

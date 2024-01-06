@@ -10,7 +10,7 @@ export const Container = styled.View`
   justify-content: center;
   align-items: center;
   border-radius: 15px;
-  background: #303035;
+  background: ${({ theme }) => theme.colors.background_card};
   margin-top: ${RFValue(20)}px;
   margin-right: ${RFValue(20)}px;
 
@@ -45,12 +45,12 @@ export const WrapperIcon = styled(TouchableOpacity)`
 
 export const IconAdd = styled(Ionicons)`
   position: absolute;
-  color: #F6C015;
+  color: ${({ theme }) => theme.colors.text};
   right: 3%;
 `;
 
 export const Total = styled.Text`
-  color: #F6C015;
+  color: ${({ theme }) => theme.colors.text};
   font-size: ${RFValue(18)}px;
   font-weight: 700;
   right: 60%;
@@ -62,6 +62,6 @@ export const Title = styled.Text`
 `;
 
 export const Amount = styled.Text`
-  color: #F6C015;
+  color: ${({ theme }) => theme.colors.text};
   font-size: ${RFValue(14)}px;
 `;
