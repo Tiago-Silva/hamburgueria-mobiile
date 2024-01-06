@@ -17,16 +17,18 @@ export default function App() {
 
   const prepareApp = async () => {
     try {
-      const flag = await AsyncStorage.getItem('operationDone');
+      // const flag = await AsyncStorage.getItem('operationDone');
 
-      if (!flag) {
-        await AsyncStorage.removeItem('itemList');
+      await AsyncStorage.removeItem('itemList');
 
-        await AsyncStorage.setItem('operationDone', 'true');
+      // await AsyncStorage.clear();
 
-      } else {
-        console.log('Operação já realizada anteriormente.');
-      }
+      // await AsyncStorage.setItem('operationDone', 'true');
+      // if (!flag) {
+
+      // } else {
+      //   console.log('Operação já realizada anteriormente.');
+      // }
 
       setIsAppReady(true);
     } catch (error) {

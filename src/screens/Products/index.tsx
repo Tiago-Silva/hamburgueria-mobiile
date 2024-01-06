@@ -12,19 +12,28 @@ import { productService } from "../../services/productService";
 
 const imagePaths: Record<string, ImageSourcePropType> = {
   Frame39: require("../../../assets/Frame39.png"),
+  Promotion: require("../../../assets/snack.jpg"),
 };
 
 export const Products = () => {
 
   const [idEstabelecimento, setIdEstabelecimento] = useState<number>(1);
   const [productList, setProductList] = useState<ProductData[]>([]);
+  const [promotions, setPromotions] = useState<ProductData[]>([]);
 
   const fetchProductData = async (category: string) => {
     try {
       console.log('consultando');
       const response = await productService.getProductsByCategory(idEstabelecimento, category);
-      setProductList(response.data);
+
       await AsyncStorage.setItem('productsCategory/' + category, JSON.stringify(response.data));
+
+      if (category === 'promotion') {
+        setPromotions(response.data);
+        return;
+      }
+
+      setProductList(response.data);
     } catch (error) {
       console.error('Error: ', error);
     }
@@ -34,6 +43,12 @@ export const Products = () => {
     try {
       const storedData = await AsyncStorage.getItem('productsCategory/' + category);
       if (storedData !== null) {
+
+        if (category === 'promotion') {
+          setPromotions(JSON.parse(storedData));
+          return;
+        }
+
         setProductList(JSON.parse(storedData));
       } else {
         fetchProductData(category);
@@ -45,6 +60,7 @@ export const Products = () => {
 
   useEffect(() => {
     retrieveProductsData('snacks');
+    retrieveProductsData('promotion');
   }, []);
 
   const renderItem = ({ item }: ListRenderItemInfo<ProductData>) => {
@@ -66,27 +82,15 @@ export const Products = () => {
 
       <HighLightCards>
 
-        <HighLightCard 
-          title="2 Miami"
-          amount={24.00}
-          urlImage={require('../../../assets/snack.jpg')}
-          idproduto={40}
-          descricao='Promoção'
-        />
-        <HighLightCard 
-          title="2 Miami"
-          amount={24.00}
-          urlImage={require('../../../assets/snack.jpg')}
-          idproduto={41}
-          descricao='Promoção'
-        />
-        <HighLightCard 
-          title="2 Miami"
-          amount={24.00}
-          urlImage={require('../../../assets/snack.jpg')}
-          idproduto={42}
-          descricao='Promoção'
-        />
+        {promotions.map((product) => 
+          <HighLightCard key={product.idproduto} 
+            title={product.nome}
+            amount={product.valor}
+            urlImage={imagePaths[product.urlImage]}
+            idproduto={product.idproduto}
+            descricao={product.descricao}
+          />
+        )}
         
       </HighLightCards>
 
