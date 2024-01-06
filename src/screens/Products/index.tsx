@@ -2,7 +2,7 @@ import { Alert, ImageSourcePropType, ListRenderItemInfo } from "react-native";
 import { Card } from "../../components/Card";
 import { Category } from "../../components/Category";
 import { Container, WrapperProductsList } from "./styles";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ProductData } from "../../interface/ProductData";
 import { Header } from "../../components/Header";
