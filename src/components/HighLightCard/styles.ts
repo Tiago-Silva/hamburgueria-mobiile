@@ -55,7 +55,7 @@ export const WrapperIcon = styled.TouchableOpacity`
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   position: absolute;
   top: -7%;
   z-index: 1;
@@ -64,6 +64,14 @@ export const WrapperIcon = styled.TouchableOpacity`
 export const IconAdd = styled(Ionicons)`
   position: absolute;
   color: #F6C015;
+  right: 0.5%;
+`;
+
+export const Quantidade = styled.Text`
+  color: #F6C015;
+  font-size: ${RFValue(18)}px;
+  font-weight: 700;
+  right: -3%;
 `;
 
 export const Title = styled.Text`

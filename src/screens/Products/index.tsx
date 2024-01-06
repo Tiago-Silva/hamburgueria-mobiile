@@ -70,16 +70,22 @@ export const Products = () => {
           title="2 Miami"
           amount={24.00}
           urlImage={require('../../../assets/snack.jpg')}
+          idproduto={40}
+          descricao='Promoção'
         />
         <HighLightCard 
           title="2 Miami"
           amount={24.00}
           urlImage={require('../../../assets/snack.jpg')}
+          idproduto={41}
+          descricao='Promoção'
         />
         <HighLightCard 
           title="2 Miami"
           amount={24.00}
           urlImage={require('../../../assets/snack.jpg')}
+          idproduto={42}
+          descricao='Promoção'
         />
         
       </HighLightCards>
