@@ -27,20 +27,20 @@ export const Card = React.memo (({
   urlImage,
   descricao
 }: Props) => {
-  const [total, setTotal] = useState<number>(0);
+  const [quantidade, setQuantidade] = useState<number>(0);
 
   const handleAddProduct = async () => {
     const newItem: ItemData = itemService.creationItem(1, title, amount, 1, idproduto, urlImage);
-    const retrievedItem: ItemData | null = await itemService.retrieveItemData(newItem);
+    const retrievedItem: ItemData | null = await itemService.retrieveAddItemData(newItem);
   
-    setTotal(retrievedItem?.quantidade || 0);
+    setQuantidade(retrievedItem?.quantidade || 0);
   };
 
   useEffect(() => {
     const fetchItem = async () => {
       try {
         const newItem: ItemData = await itemService.retrieveItemObject(idproduto);
-        setTotal(newItem?.quantidade);
+        setQuantidade(newItem?.quantidade);
       } catch (error) {
         // console.error('Erro ao recuperar o item: ', error);
       }
@@ -52,8 +52,8 @@ export const Card = React.memo (({
   return (
     <Container>
       <WrapperIcon onPress={handleAddProduct}>
-        {total > 0 && (
-          <Total>{total}</Total>
+        {quantidade > 0 && (
+          <Total>{quantidade}</Total>
         )}
         <IconAdd 
           name='add-circle'

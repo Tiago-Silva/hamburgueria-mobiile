@@ -33,7 +33,7 @@ export const  HighLightCard = React.memo (({
 
   const handleAddProduct = async () => {
     const newItem: ItemData = itemService.creationItem(1, title, amount, 1, idproduto, urlImage);
-    const retrievedItem: ItemData | null = await itemService.retrieveItemData(newItem);
+    const retrievedItem: ItemData | null = await itemService.retrieveAddItemData(newItem);
   
     setQuantidade(retrievedItem?.quantidade || 0);
   };

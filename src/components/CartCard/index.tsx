@@ -7,9 +7,12 @@ import {
   IconSubtract, 
   Imagem, 
   Title,
-  TitleFooter
+  TitleFooter,
+  WrapperIcon,
 } from "./styles";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { ItemData } from "../../interface/Item";
+import { itemService } from "../../services/itemService";
 
 interface Props {
   idproduto: number;
@@ -18,6 +21,7 @@ interface Props {
   urlImage: ImageSourcePropType;
   descricao?: string;
   quantidade: number;
+  removeItem: (updatedItemsArray: ItemData[]) => void;
 }
 
 export const CartCard = ({
@@ -26,8 +30,42 @@ export const CartCard = ({
   amount,
   urlImage,
   descricao,
-  quantidade
+  quantidade,
+  removeItem
 }: Props) => {
+  const [quant, setQuantity] = useState<number>(quantidade);
+
+  const handleAddItem = async () => {
+    const newItem: ItemData = itemService.creationItem(1, title, amount, 1, idproduto, urlImage);
+    const retrievedItem: ItemData | null = await itemService.retrieveAddItemData(newItem);
+  
+    setQuantity(retrievedItem?.quantidade || 0);
+  };
+
+  const handleSubtractItem = async () => {
+    const newItem: ItemData = itemService.creationItem(1, title, amount, 1, idproduto, urlImage);
+    const retrievedItem: ItemData | null = await itemService.retrieveSubtractItemData(newItem);
+  
+    setQuantity(retrievedItem?.quantidade || 0);
+  };
+
+  useEffect(() => {
+    if (quant <= 0) {
+      const handleDelete = async (idproduto: number) => {
+        try {
+          const updateArray: ItemData[] = await itemService.deleteObjectItem(idproduto);
+          // Use a updateArray conforme necessário
+          removeItem(updateArray);
+        } catch (error) {
+          throw new Error('Error ao deletar o item');
+          console.error('Erro ao deletar o item:', error);
+        }
+      };
+      
+      handleDelete(idproduto);
+    }
+  }, [quant])
+
   return (
     <Container>
       <Imagem source={urlImage} />
@@ -40,17 +78,21 @@ export const CartCard = ({
       </Amount>
       
       <Footer>
-        <IconSubtract
-          name='remove-circle'
-          size={30}
-        />
+        <WrapperIcon onPress={handleSubtractItem}>
+          <IconSubtract
+            name='remove-circle'
+            size={30}
+          />
+        </WrapperIcon>
         
-        <TitleFooter>{quantidade}</TitleFooter>
+        <TitleFooter>{quant}</TitleFooter>
 
-        <IconAdd
-          name='add-circle'
-          size={30}
-        />
+        <WrapperIcon onPress={handleAddItem}>
+          <IconAdd
+            name='add-circle'
+            size={30}
+          />
+        </WrapperIcon>
       </Footer>
 
     </Container>

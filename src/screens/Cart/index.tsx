@@ -18,11 +18,16 @@ const imagePaths: Record<string, ImageSourcePropType> = {
 export const Cart = () => {
   const [itemList, setItemList] = useState<ItemData[]>([]);
 
+  const retrieveItemList = async () => {
+    setItemList(await itemService.retrieveItemList());
+  };
+
+  const handleUpdateList = (updateListItem: ItemData[]) => {
+    setItemList(updateListItem);
+  }
+
   useFocusEffect(
     React.useCallback(() => {
-      const retrieveItemList = async () => {
-        setItemList(await itemService.retrieveItemList());
-      };
       retrieveItemList();
     }, [])
   );
@@ -44,6 +49,7 @@ export const Cart = () => {
             quantidade={item.quantidade}
             urlImage={item.urlImage}
             idproduto={item.idproduto}
+            removeItem={handleUpdateList}
           />
         )}
 

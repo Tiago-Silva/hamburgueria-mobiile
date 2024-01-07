@@ -25,7 +25,7 @@ export const itemService = {
     }
   },
 
-  retrieveItemData: async (item: ItemData) => {
+  retrieveAddItemData: async (item: ItemData) => {
     try {
       const storedData = await AsyncStorage.getItem('itemList');
       let itemsArray: ItemData[] = [];
@@ -47,6 +47,41 @@ export const itemService = {
       } else {
         // Se não encontrar, adiciona o novo item ao array
         itemsArray.push(item);
+      }
+  
+      // 3. Salvar o array atualizado de itens de volta no AsyncStorage
+      await AsyncStorage.setItem('itemList', JSON.stringify(itemsArray));
+
+      if (indexEncontrado !== -1) {
+        return itemsArray[indexEncontrado];
+      } else {
+        return item;
+      }
+    } catch (error) {
+      return null;
+      console.error('Erro ao recuperar dados do AsyncStorage:', error);
+    }
+  },
+
+  retrieveSubtractItemData: async (item: ItemData) => {
+    try {
+      const storedData = await AsyncStorage.getItem('itemList');
+      let itemsArray: ItemData[] = [];
+  
+      if (storedData !== null) {
+        itemsArray = JSON.parse(storedData);
+      }
+
+      const indexEncontrado = itemsArray.findIndex(data => data.idproduto === item.idproduto);
+
+      if (indexEncontrado !== -1) {
+        // Se encontrar um item com o mesmo idproduto, substitui o item existente pelo novo
+        itemsArray[indexEncontrado] = {
+          ...itemsArray[indexEncontrado],
+          quantidade: itemsArray[indexEncontrado].quantidade - item.quantidade,
+          total: itemsArray[indexEncontrado].quantidade * itemsArray[indexEncontrado].valor,
+        };
+
       }
   
       // 3. Salvar o array atualizado de itens de volta no AsyncStorage
@@ -96,7 +131,22 @@ export const itemService = {
     }
   },
 
-  deleteItemData: async () => {
+  deleteObjectItem: async (idproduto: number): Promise<ItemData[]> => {
+    const storedData = await AsyncStorage.getItem('itemList');
+    let itemsArray: ItemData[] = [];
+
+    if (storedData !== null) {
+      itemsArray = JSON.parse(storedData);
+    }
+
+    const updatedItemsArray: ItemData[] = itemsArray.filter(data => data.idproduto !== idproduto);
+
+    await AsyncStorage.setItem('itemList', JSON.stringify(updatedItemsArray));
+
+    return updatedItemsArray;
+  },
+
+  deleteListItem: async () => {
     try {
       await AsyncStorage.removeItem('itemList');
     } catch (error) {

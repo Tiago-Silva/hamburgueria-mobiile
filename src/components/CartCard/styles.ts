@@ -67,3 +67,7 @@ export const IconSubtract = styled(Ionicons)`
   /* position: absolute; */
   color: ${({ theme }) => theme.colors.text};
 `;
+
+export const WrapperIcon = styled.TouchableOpacity`
+
+`;
