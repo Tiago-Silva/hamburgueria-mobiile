@@ -22,6 +22,8 @@ interface Props {
   descricao?: string;
   quantidade: number;
   removeItem: (updatedItemsArray: ItemData[]) => void;
+  handleAdd: (valor: number) => void;
+  handleSubtract: (amount: number) => void;
 }
 
 export const CartCard = ({
@@ -31,7 +33,9 @@ export const CartCard = ({
   urlImage,
   descricao,
   quantidade,
-  removeItem
+  removeItem,
+  handleAdd,
+  handleSubtract
 }: Props) => {
   const [quant, setQuantity] = useState<number>(quantidade);
 
@@ -40,6 +44,7 @@ export const CartCard = ({
     const retrievedItem: ItemData | null = await itemService.retrieveAddItemData(newItem);
   
     setQuantity(retrievedItem?.quantidade || 0);
+    handleAdd(amount);
   };
 
   const handleSubtractItem = async () => {
@@ -47,6 +52,7 @@ export const CartCard = ({
     const retrievedItem: ItemData | null = await itemService.retrieveSubtractItemData(newItem);
   
     setQuantity(retrievedItem?.quantidade || 0);
+    handleSubtract(amount);
   };
 
   useEffect(() => {

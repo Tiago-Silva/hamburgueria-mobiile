@@ -30,7 +30,7 @@ export const Card = React.memo (({
   const [quantidade, setQuantidade] = useState<number>(0);
 
   const handleAddProduct = async () => {
-    const newItem: ItemData = itemService.creationItem(1, title, amount, 1, idproduto, urlImage);
+    const newItem: ItemData = itemService.creationItem(1, title, amount, amount, idproduto, urlImage);
     const retrievedItem: ItemData | null = await itemService.retrieveAddItemData(newItem);
   
     setQuantidade(retrievedItem?.quantidade || 0);
