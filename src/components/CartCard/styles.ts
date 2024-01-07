@@ -13,6 +13,7 @@ export const Container = styled.View`
   border-radius: 15px;
   background: ${({ theme }) => theme.colors.background_card};
   margin-top: ${RFValue(20)}px;
+  margin-left: ${RFValue(25)}px;
 
   ${Platform.select({
     ios: `
