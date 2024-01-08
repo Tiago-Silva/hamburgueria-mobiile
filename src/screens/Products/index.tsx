@@ -1,4 +1,4 @@
-import { Alert, ImageSourcePropType, ListRenderItemInfo } from "react-native";
+import { Alert, ImageSourcePropType, ListRenderItemInfo, RefreshControl } from "react-native";
 import { Card } from "../../components/Card";
 import { Category } from "../../components/Category";
 import { Container, WrapperProductsList } from "./styles";
@@ -9,6 +9,7 @@ import { Header } from "../../components/Header";
 import { HighLightCards } from "../../components/HighLightCard/styles";
 import { HighLightCard } from "../../components/HighLightCard";
 import { productService } from "../../services/productService";
+import { itemService } from "../../services/itemService";
 
 const imagePaths: Record<string, ImageSourcePropType> = {
   Frame39: require("../../../assets/Frame39.png"),
@@ -22,6 +23,7 @@ export const Products = () => {
   const [idEstabelecimento, setIdEstabelecimento] = useState<number>(1);
   const [productList, setProductList] = useState<ProductData[]>([]);
   const [promotions, setPromotions] = useState<ProductData[]>([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   const fetchProductData = async (category: string) => {
     try {
@@ -77,12 +79,33 @@ export const Products = () => {
     );
   };
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    setProductList([]);
+    setPromotions([]);
+    itemService.deleteListItem();
+    productService.deleteProdutByCategoryToStorage('promotion');
+    retrieveProductsData('snacks');
+    retrieveProductsData('promotion');
+    setRefreshing(false);
+  };
+
   return (
     <Container>
 
       <Header />
 
-      <HighLightCards>
+      <HighLightCards
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={['#ff0000', '#00ff00', '#0000ff']}
+            // Cores para o indicador de carregamento (opcional)
+          />
+        }
+      >
+      
 
         {promotions.map((product) => 
           <HighLightCard key={product.idproduto} 

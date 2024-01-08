@@ -47,7 +47,7 @@ export const Card = React.memo (({
     };
   
     fetchItem();
-  }, []);
+  }, [idproduto]);
 
   return (
     <Container>

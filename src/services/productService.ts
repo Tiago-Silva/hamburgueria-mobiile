@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 import axios from './axiosConfig';
 import { ProductData } from "../interface/ProductData";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -19,5 +20,14 @@ export const productService = {
   ): Promise<AxiosResponse<ProductData[]>> => {
     const response = await axios.get('/produto/getProdutos/' + idestabelecimento + '/' + category);
     return response;
+  },
+
+  deleteProdutByCategoryToStorage: async (category: string) => {
+    try {
+      await AsyncStorage.removeItem('productsCategory/' + category);
+    } catch (error) {
+      console.error('Erro ao excluir dados do AsyncStorage: ', error);
+    }
   }
+
 }

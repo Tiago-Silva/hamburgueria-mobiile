@@ -11,7 +11,7 @@ import {
   WrapperIcon 
 } from "./styles";
 import React, { useEffect, useState } from "react";
-import { ItemData } from "../../interface/Item";
+import { ItemData } from "../../interface/ItemData";
 import { itemService } from "../../services/itemService";
 
 interface Props {
