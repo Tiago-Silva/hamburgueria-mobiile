@@ -52,6 +52,7 @@ export const Cart = () => {
       newList
     )
     pedidoservice.save(newOrder);
+    setItemList([]);
   };
 
   useFocusEffect(
@@ -93,11 +94,12 @@ export const Cart = () => {
             handleSubtract={handleSubtract}
           />
         )}
-
-        <Payment 
-          subTotal={subTotal}
-          handleConfirm={handleSavePedido}
-        />
+        {itemList.length > 0 && (
+          <Payment 
+            subTotal={subTotal}
+            handleConfirm={handleSavePedido}
+          />
+        )}
 
       </Content>
       

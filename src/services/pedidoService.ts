@@ -3,6 +3,7 @@ import { ItemData } from "../interface/ItemData"
 import { PedidoData } from "../interface/PedidoData"
 import axios from "axios";
 import { ItemEntity } from "../interface/ItemEntity";
+import { itemService } from "./itemService";
 
 
 export const pedidoservice = {
@@ -26,6 +27,7 @@ export const pedidoservice = {
   ) => {
     try {
       const response = await axios.post('http://192.168.20.20:8080/pedido/save', newOrder);
+      itemService.deleteListItem();
     } catch (error) {
       console.error('Erro ao salvar o pedido:', error);
       throw error;
