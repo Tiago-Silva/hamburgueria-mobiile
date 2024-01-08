@@ -17,7 +17,7 @@ interface Props {
   subTotal: number;
 }
 
-export const Payment = ({
+export const Payment = React.memo (({
   subTotal
 }: Props) => {
   const [paymentType, setPaymentType] = useState('pix');
@@ -25,6 +25,7 @@ export const Payment = ({
   const handleOnPress = (type: string) => {
     setPaymentType(type);
   };
+  
   return (
     <Container>
       <Header>
@@ -92,4 +93,4 @@ export const Payment = ({
 
     </Container>
   );
-}
+});

@@ -3,7 +3,7 @@ import { ItemData } from "../interface/ItemData"
 import { PedidoData } from "../interface/PedidoData"
 
 
-export const Pedidoservice = {
+export const pedidoservice = {
 
   creationPedido: (
     total: number,
@@ -27,25 +27,25 @@ export const Pedidoservice = {
     }
   },
 
-  retrieveAddPedidoData: async (pedido: PedidoData) => {
+  saveToCartStorage: async (pedido: PedidoData): Promise<PedidoData | null> => {
     try {
-      const storedData = await AsyncStorage.getItem('pedidoList');
-      let pedidoArray: PedidoData[] = [];
+      const objectData = await AsyncStorage.getItem('pedidoObject');
+
+      
   
-      if (storedData !== null) {
-        pedidoArray = JSON.parse(storedData);
+      if (objectData) {
+        const novoPedido: PedidoData = JSON.parse(objectData);
+        pedido.items = novoPedido.items;
       }
 
-      pedidoArray.push(pedido);
-  
-      // 3. Salvar o array atualizado de itens de volta no AsyncStorage
-      await AsyncStorage.setItem('pedidoList', JSON.stringify(pedidoArray));
+      await AsyncStorage.setItem('pedidoObject', JSON.stringify(pedido));
 
       return pedido;
     } catch (error) {
+      console.error('Erro ao salvar ou recuperar pedido do AsyncStorage:', error);
       return null;
-      console.error('Erro ao recuperar dados do AsyncStorage:', error);
     }
   },
+  
 
 }

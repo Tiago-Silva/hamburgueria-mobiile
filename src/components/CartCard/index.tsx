@@ -26,7 +26,7 @@ interface Props {
   handleSubtract: (amount: number) => void;
 }
 
-export const CartCard = ({
+export const CartCard = React.memo (({
   idproduto,
   title,
   amount,
@@ -103,4 +103,4 @@ export const CartCard = ({
 
     </Container>
   );
-}
+});
