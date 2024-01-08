@@ -1,16 +1,10 @@
 import { ItemData } from "./ItemData";
+import { ItemEntity } from "./ItemEntity";
 
 
 export interface PedidoData {
-  idpedido?: number;
-  data?: string;
-  ano?: string;
-  mes?: string;
-  dia?: string;
-  hora?: string;
   total: number;
-  userName: string;
   iduser: string;
   tipoPagamento: string;
-  items: Array<ItemData>;
+  items: Array<ItemEntity>;
 }

@@ -9,7 +9,7 @@ interface WrapperIconProps {
 
 export const Container = styled.View`
   width: 300px;
-  height: ${RFPercentage(25)}px;
+  height: ${RFPercentage(30)}px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -75,6 +75,7 @@ export const WrapperIcons = styled.View`
   justify-content: center;
   align-items: center;
   margin-top: ${RFValue(10)}px;
+  margin-bottom: ${RFValue(10)}px;
 `
 
 export const TouchIcon = styled.TouchableOpacity<WrapperIconProps>`

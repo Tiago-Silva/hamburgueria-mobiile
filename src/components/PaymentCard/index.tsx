@@ -12,15 +12,18 @@ import {
   WrapperTitles, 
   WrapperValues 
 } from "./styles";
+import { Buttom } from "../Buttom";
 
 interface Props {
   subTotal: number;
+  handleConfirm: (paymentType: string) => void;
 }
 
 export const Payment = React.memo (({
-  subTotal
+  subTotal,
+  handleConfirm
 }: Props) => {
-  const [paymentType, setPaymentType] = useState('pix');
+  const [paymentType, setPaymentType] = useState('PIX');
 
   const handleOnPress = (type: string) => {
     setPaymentType(type);
@@ -62,8 +65,8 @@ export const Payment = React.memo (({
 
         <WrapperIcons>
           <TouchIcon
-            onPress={() => handleOnPress('money')}
-            isSelected={paymentType === 'money'}
+            onPress={() => handleOnPress('DINHEIRO')}
+            isSelected={paymentType === 'DINHEIRO'}
           >
             <IconPayment 
               name='attach-money'
@@ -71,8 +74,8 @@ export const Payment = React.memo (({
             />
           </TouchIcon>
           <TouchIcon
-            onPress={() => handleOnPress('credit-card')}
-            isSelected={paymentType === 'credit-card'}
+            onPress={() => handleOnPress('CREDITO')}
+            isSelected={paymentType === 'CREDITO'}
           >
             <IconPayment 
               name='credit-card'
@@ -80,8 +83,8 @@ export const Payment = React.memo (({
             />
           </TouchIcon>
           <TouchIcon
-            onPress={() => handleOnPress('pix')}
-            isSelected={paymentType === 'pix'}
+            onPress={() => handleOnPress('PIX')}
+            isSelected={paymentType === 'PIX'}
           >
             <IconPix 
               name='pix'
@@ -89,6 +92,13 @@ export const Payment = React.memo (({
             />
           </TouchIcon>
         </WrapperIcons>
+
+        <Buttom 
+          backgroundColor="#000000"
+          borderColor="#000000"
+          title="Confirmar"
+          onPress={() => handleConfirm(paymentType)}
+        />
       </Footer>
 
     </Container>

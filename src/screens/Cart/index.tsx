@@ -9,6 +9,8 @@ import { ItemData } from "../../interface/ItemData";
 import { itemService } from "../../services/itemService";
 import { useFocusEffect } from "@react-navigation/native";
 import { Payment } from "../../components/PaymentCard";
+import { pedidoservice } from '../../services/pedidoService';
+import { ItemEntity } from "../../interface/ItemEntity";
 
 
 export const Cart = () => {
@@ -29,6 +31,27 @@ export const Cart = () => {
 
   const handleSubtract = (amount: number) => {
     setSubTotal((prev) => prev - amount);
+  };
+
+  const handleSavePedido = (paymentType: string) => {
+    const newList: ItemEntity[] = [];
+
+    itemList.forEach((item) => {
+      let newObject: ItemEntity = {
+        quantidade: item.quantidade,
+        descricao: item.descricao,
+        idproduto: item.idproduto,
+      }
+      newList.push(newObject);
+    });
+
+    const newOrder = pedidoservice.creationPedido(
+      (subTotal + 5),
+      '3afc5f12-6137-480e-af1e-5dbd6531b40b',
+      paymentType,
+      newList
+    )
+    pedidoservice.save(newOrder);
   };
 
   useFocusEffect(
@@ -73,6 +96,7 @@ export const Cart = () => {
 
         <Payment 
           subTotal={subTotal}
+          handleConfirm={handleSavePedido}
         />
 
       </Content>
