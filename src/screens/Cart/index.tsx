@@ -5,7 +5,7 @@ import { Container,
   TitleCart,
 } from "./styles";
 import { CartCard } from "../../components/CartCard";
-import { ItemData } from "../../interface/Item";
+import { ItemData } from "../../interface/ItemData";
 import { itemService } from "../../services/itemService";
 import { useFocusEffect } from "@react-navigation/native";
 import { Payment } from "../../components/PaymentCard";

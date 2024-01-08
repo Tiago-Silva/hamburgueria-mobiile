@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ItemData } from "../interface/Item";
+import { ItemData } from "../interface/ItemData";
 import { ImageSourcePropType } from "react-native";
 
 
