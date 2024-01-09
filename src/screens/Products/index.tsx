@@ -1,7 +1,7 @@
-import { Alert, ImageSourcePropType, ListRenderItemInfo, RefreshControl } from "react-native";
+import { ActivityIndicator, Alert, ImageSourcePropType, ListRenderItemInfo, RefreshControl } from "react-native";
 import { Card } from "../../components/Card";
 import { Category } from "../../components/Category";
-import { Container, WrapperProductsList } from "./styles";
+import { Container, LoadContainer, WrapperProductsList } from "./styles";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ProductData } from "../../interface/ProductData";
@@ -10,6 +10,7 @@ import { HighLightCards } from "../../components/HighLightCard/styles";
 import { HighLightCard } from "../../components/HighLightCard";
 import { productService } from "../../services/productService";
 import { itemService } from "../../services/itemService";
+import { useTheme } from "styled-components";
 
 const imagePaths: Record<string, ImageSourcePropType> = {
   Frame39: require("../../../assets/Frame39.png"),
@@ -24,6 +25,9 @@ export const Products = () => {
   const [productList, setProductList] = useState<ProductData[]>([]);
   const [promotions, setPromotions] = useState<ProductData[]>([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const theme = useTheme();
 
   const fetchProductData = async (category: string) => {
     try {
@@ -65,6 +69,7 @@ export const Products = () => {
   useEffect(() => {
     retrieveProductsData('snacks');
     retrieveProductsData('promotion');
+    setIsLoading(false);
   }, []);
 
   const renderItem = ({ item }: ListRenderItemInfo<ProductData>) => {
@@ -92,43 +97,55 @@ export const Products = () => {
 
   return (
     <Container>
+      {
+        isLoading ?
+          <LoadContainer>
+            <ActivityIndicator 
+              color={theme.colors.text}
+              size={"large"}
+            />
+          </LoadContainer>
+          :
+            <>
+              <Header />
 
-      <Header />
+              <HighLightCards
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                    colors={['#ff0000', '#00ff00', '#0000ff']}
+                    // Cores para o indicador de carregamento (opcional)
+                  />
+                }
+              >
+              
 
-      <HighLightCards
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            colors={['#ff0000', '#00ff00', '#0000ff']}
-            // Cores para o indicador de carregamento (opcional)
-          />
-        }
-      >
-      
+                {promotions.map((product) => 
+                  <HighLightCard key={product.idproduto} 
+                    title={product.nome}
+                    amount={product.valor}
+                    urlImage={imagePaths[product.urlImage]}
+                    idproduto={product.idproduto}
+                    descricao={product.descricao}
+                  />
+                )}
+                
+              </HighLightCards>
 
-        {promotions.map((product) => 
-          <HighLightCard key={product.idproduto} 
-            title={product.nome}
-            amount={product.valor}
-            urlImage={imagePaths[product.urlImage]}
-            idproduto={product.idproduto}
-            descricao={product.descricao}
-          />
-        )}
-        
-      </HighLightCards>
+              <Category 
+                handleCategorySelected={retrieveProductsData}
+              />
 
-      <Category 
-        handleCategorySelected={retrieveProductsData}
-      />
+              <WrapperProductsList 
+                data={productList || []}
+                keyExtractor={(item: ProductData) => item.idproduto}
+                renderItem={renderItem}
+                numColumns={2}
+              />
+            </>
+      }
 
-      <WrapperProductsList 
-        data={productList || []}
-        keyExtractor={(item: ProductData) => item.idproduto}
-        renderItem={renderItem}
-        numColumns={2}
-      />
 
     </Container>
   );

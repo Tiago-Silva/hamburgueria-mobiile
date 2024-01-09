@@ -35,3 +35,9 @@ export const WrapperProductsList = styled(
   margin-left: ${RFPercentage(8)}px;
   width: 100%;
 `;
+
+export const LoadContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
