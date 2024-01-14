@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "hamburgueria",
+    "scheme": "hamburgueria",
     "slug": "hamburgueria",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,7 +16,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "br.com.seudominio.hamburgueria"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,6 +29,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "plugins": ["@react-native-google-signin/google-signin"],
     "extra": {
       "eas": {
         "projectId": "07ba15d5-159c-43cb-8659-1b821d127838"

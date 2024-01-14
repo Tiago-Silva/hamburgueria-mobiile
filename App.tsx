@@ -3,10 +3,10 @@ import { StatusBar, StyleSheet } from 'react-native';
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { NavigationContainer } from '@react-navigation/native';
-import { AppRoutes } from './src/routes/app.routes';
 import { ThemeProvider } from 'styled-components';
 import theme from './src/global/theme';
+import { Routes } from './src/routes';
+import { AuthProvider } from './src/hooks/auth';
 
 
 export default function App() {
@@ -46,19 +46,17 @@ export default function App() {
     <ThemeProvider theme={theme}>
 
       <GestureHandlerRootView style={{ flex: 1 }}>
+        
+        <AuthProvider>
 
-        <StatusBar 
-          backgroundColor='#2a2e34'
-          barStyle="light-content"
-        />
+          <StatusBar 
+            backgroundColor='#2a2e34'
+            barStyle="light-content"
+          />
+          <Routes />
 
-        <NavigationContainer>
-
-          <AppRoutes />
+        </AuthProvider>
             
-        </NavigationContainer>
-
-
       </GestureHandlerRootView>
 
     </ThemeProvider>
