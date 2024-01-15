@@ -7,6 +7,7 @@ import { ThemeProvider } from 'styled-components';
 import theme from './src/global/theme';
 import { Routes } from './src/routes';
 import { AuthProvider } from './src/hooks/auth';
+import { UserRegistration } from './src/screens/UserRegistration';
 
 
 export default function App() {
@@ -53,7 +54,9 @@ export default function App() {
             backgroundColor='#2a2e34'
             barStyle="light-content"
           />
-          <Routes />
+          {/* <Routes /> */}
+
+          <UserRegistration />
 
         </AuthProvider>
             

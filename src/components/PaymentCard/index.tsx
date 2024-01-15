@@ -19,7 +19,7 @@ interface Props {
   handleConfirm: (paymentType: string) => void;
 }
 
-export const Payment = React.memo (({
+export const PaymentCard = React.memo (({
   subTotal,
   handleConfirm
 }: Props) => {

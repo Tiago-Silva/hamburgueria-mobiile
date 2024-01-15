@@ -8,7 +8,7 @@ import { CartCard } from "../../components/CartCard";
 import { ItemData } from "../../interface/ItemData";
 import { itemService } from "../../services/itemService";
 import { useFocusEffect } from "@react-navigation/native";
-import { Payment } from "../../components/PaymentCard";
+import { PaymentCard } from "../../components/PaymentCard";
 import { pedidoservice } from '../../services/pedidoService';
 import { ItemEntity } from "../../interface/ItemEntity";
 
@@ -95,7 +95,7 @@ export const Cart = () => {
           />
         )}
         {itemList.length > 0 && (
-          <Payment 
+          <PaymentCard 
             subTotal={subTotal}
             handleConfirm={handleSavePedido}
           />

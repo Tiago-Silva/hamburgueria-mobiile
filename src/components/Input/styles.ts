@@ -6,6 +6,7 @@ export const Container = styled.View`
   display: flex;
   justify-content: flex-start;
   width: ${RFValue(200)}px;
+  margin-bottom: ${RFValue(20)}px;
 `;
 
 export const Title = styled.Text`
