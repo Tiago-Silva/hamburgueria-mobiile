@@ -11,6 +11,12 @@ export const Container = styled.View`
   margin-bottom: 5px;
 `;
 
+export const LoadContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const Header = styled.View`
   width: 100%;
   height: ${RFPercentage(15)}px;

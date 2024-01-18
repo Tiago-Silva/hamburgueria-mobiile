@@ -8,6 +8,5 @@ export const userRegistrationSchema = z.object({
   bairro: z.string(),
   endereco: z.string(),
   telefone: z.string(),
-  login: z.string().min(6, "Login deve ter no mínimo 6 caracteres"),
-  password: z.string().min(8, "Senha deve ter no mínimo 8 caracteres"),
+  email: z.string().min(6, "Login deve ter no mínimo 6 caracteres"),
 });

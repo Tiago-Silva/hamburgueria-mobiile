@@ -15,23 +15,20 @@ const { CLIENT_ID } = process.env;
 const { REDIRECT_URI } = process.env;
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { UserInfo } from '../components/Header/styles';
+import { UserGoogle } from '../interface/UserGoogle';
+
 
 interface AuthProviderProps {
   children: ReactNode;
 }
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  photo?: string;
-}
-
 interface IAuthContextData {
-  user: User;
+  userGoogle: UserGoogle;
+  token: string;
   signInWithGoogle(): Promise<void>;
   signInWithApple(): Promise<void>;
+  setAuthToken: (token: string) => void;
+  setAuthUserGoogle: (user: UserGoogle ) => void;
 }
 
 interface AuthorizationResponse {
@@ -49,10 +46,12 @@ GoogleSignin.configure({
 });
 
 const AuthProvider = ({ children }: AuthProviderProps ) => {
-  const [user, setUser] = useState<User>({} as User);
+  const [userGoogleInfo, setUserGoogleInfo] = useState<UserGoogle>({} as UserGoogle);
+  const [token, setToken] = useState<string>('');
+
   const [userStorageLoading, setUserStorageLoading] = useState(true);
 
-  const userStorageKey = '@gofinances:user';
+  const userStorageKey = '@alonsao_burguer:';
 
 
   async function signInWithGoogle() {
@@ -61,23 +60,29 @@ const AuthProvider = ({ children }: AuthProviderProps ) => {
       const userInfo = await GoogleSignin.signIn();
 
       if (userInfo && userInfo.user) {
-        setUser({
-          id: '9887897',
+        setUserGoogleInfo({
+          id: userInfo.user.id,
           name: userInfo.user.name || '',
           email: userInfo.user.email,
           photo: userInfo.user.photo || '', 
         })
+
+        await AsyncStorage.setItem(userStorageKey + 'userGoogle', JSON.stringify(userGoogleInfo));
       }
 
-      console.log({ user });
+      console.log({ userInfo });
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        console.log('{user cancelled the login flow}' + error.message);
         // user cancelled the login flow
       } else if (error.code === statusCodes.IN_PROGRESS) {
+        console.log('{operation (e.g. sign in) is in progress already}' + error.message);
         // operation (e.g. sign in) is in progress already
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        console.log('{play services not available or outdated}' + error.message);
         // play services not available or outdated
       } else {
+        console.log('{some other error happened}' + error.message);
         // some other error happened
       }
     }
@@ -108,27 +113,77 @@ const AuthProvider = ({ children }: AuthProviderProps ) => {
     // }
   }
 
+  const setAuthToken = (token: string) => {
+    setToken(token);
+  }
+
+  const setAuthUserGoogle = (user: UserGoogle) => {
+    setUserGoogleInfo(user);
+  }
+
   useEffect(() => {
     async function loadUserStorageDate() {
-      const userStoraged = await AsyncStorage.getItem('@gofinances:user');
+      const userStoraged = await AsyncStorage.getItem(userStorageKey + 'userGoogle');
+      const tokenStoraged = await AsyncStorage.getItem(userStorageKey + 'token');
       
       if(userStoraged){
-        const userLogged = JSON.parse(userStoraged) as User;
-        setUser(userLogged);
+        const userLogged = JSON.parse(userStoraged) as UserGoogle;
+        setUserGoogleInfo(userLogged);
+      }
+
+      if(tokenStoraged){
+        // const userToken = JSON.parse(tokenStoraged) as string;
+        setToken(tokenStoraged);
       }
 
       setUserStorageLoading(false);
     }
 
+    // const checkCurrentUser = async () => {
+    //   try {
+    //     // Verifica se há serviços do Google Play disponíveis
+    //     await GoogleSignin.hasPlayServices();
+
+    //     // Verifica se há um usuário autenticado anteriormente
+    //     const hasPreviousSignIn = await GoogleSignin.isSignedIn();
+
+    //     if (hasPreviousSignIn) {
+    //       // Obtém informações sobre o usuário atualmente autenticado, se houver
+    //       const userInfo = await GoogleSignin.signInSilently();
+    //       if (userInfo && userInfo.user) {
+    //         // console.log(userInfo);
+    //         setUserGoogleInfo({
+    //           id: userInfo.user.id,
+    //           name: userInfo.user.name || '',
+    //           email: userInfo.user.email,
+    //           photo: userInfo.user.photo || '', 
+    //         })
+    //         await AsyncStorage.setItem(userStorageKey + 'userGoogle', JSON.stringify(userGoogleInfo));
+            
+    //       } else {
+    //         console.log('Nenhum usuário autenticado');
+    //       }
+    //     } else {
+    //       console.log('Nenhum usuário autenticado anteriormente');
+    //     }
+    //   } catch (error) {
+    //     console.error('Erro ao verificar usuário autenticado:');
+    //   }
+    // };
+
+    // checkCurrentUser();
     loadUserStorageDate();
   },[]);
   
 
   return (
     <AuthContext.Provider value={{
-      user,
+      userGoogle: userGoogleInfo,
+      token: token,
       signInWithGoogle,
-      signInWithApple
+      signInWithApple,
+      setAuthToken,
+      setAuthUserGoogle
     }}>
       {children}
     </AuthContext.Provider>

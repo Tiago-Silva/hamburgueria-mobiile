@@ -5,14 +5,20 @@ import { AuthRoutes  } from './auth.routes';
 import { AppRoutes  } from './app.routes';
 
 import { useAuth } from '../hooks/auth';
+import { RegistrationUserRoutes } from './registrationUser.routes';
+import { UserRegisterData } from '../interface/UserRegisterData';
 
 
 export const Routes = () => {
-  const { user } = useAuth();
+  // const { userGoogle: userGoogle, user: UserData } = useAuth();
+  const { userGoogle, token } = useAuth();
   
   return(
     <NavigationContainer>
-      {user.id ? <AppRoutes/> : <AuthRoutes />}
+      {userGoogle.id 
+        ? token && token.length > 4 ? <AppRoutes /> : <RegistrationUserRoutes />
+        : <AuthRoutes />
+      }
     </NavigationContainer>
   );
 }

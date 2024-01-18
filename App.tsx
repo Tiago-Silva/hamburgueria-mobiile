@@ -23,7 +23,7 @@ export default function App() {
 
       await AsyncStorage.removeItem('itemList');
 
-      // await AsyncStorage.clear();
+      await AsyncStorage.clear();
 
       // await AsyncStorage.setItem('operationDone', 'true');
       // if (!flag) {
@@ -54,9 +54,9 @@ export default function App() {
             backgroundColor='#2a2e34'
             barStyle="light-content"
           />
-          {/* <Routes /> */}
+          <Routes />
 
-          <UserRegistration />
+          {/* <UserRegistration /> */}
 
         </AuthProvider>
             

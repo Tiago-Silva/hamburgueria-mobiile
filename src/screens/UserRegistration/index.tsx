@@ -1,37 +1,88 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { 
   Container, 
   Header, 
+  LoadContainer, 
   Title, 
   WrapperInputs 
 } from "./styles";
 import { Input } from "../../components/Input";
 import { Buttom } from "../../components/Buttom";
-import { Controller, SubmitHandler, UseFormHandleSubmit, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { userRegistrationSchema } from "../../interface/userRegistrationSchema";
 import { z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { userService } from "../../services/userService";
+import { UserRegisterData } from '../../interface/UserRegisterData';
+import { useAuth } from "../../hooks/auth";
+import {
+  GoogleSignin,
+} from '@react-native-google-signin/google-signin';
+import { Loading } from "../../components/Loading";
 
 
 export type userRegistrationData = z.infer<typeof userRegistrationSchema>;
 
 export const UserRegistration = () => {
-  const { control, handleSubmit } = useForm<userRegistrationData>({
-    resolver: zodResolver(userRegistrationSchema),
-      defaultValues: {
-        nome: 'Ricardo',
-        sobreNome: 'Brito',
-        cidade: 'Itambé',
-        bairro: 'Felipe Achy',
-        endereco: 'Rua central número 15',
-        login: 'email@provider',
-        password: '123456789'
-      },
+  const { setAuthToken } = useAuth();
+
+  // const [userGoogleInfo, setUserGoogleInfo] = useState<UserGoogle>({} as UserGoogle);
+  const userStorageKey = '@alonsao_burguer:';
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { control, handleSubmit, setValue } = useForm<userRegistrationData>({
+    resolver: zodResolver(userRegistrationSchema)
   });
 
-  const handleOnSubmit: SubmitHandler<userRegistrationData> = (data) => {
-    console.log(JSON.stringify(data));
+  const handleOnSubmit: SubmitHandler<userRegistrationData> = async (data) => {
+    try {
+      const register: UserRegisterData = {
+        nome: data.nome,
+        sobreNome: data.sobreNome || '',
+        telefone: data.telefone || '', 
+        endereco: data.endereco || '',
+        email: data.email,
+        type: 'MOBILLE',
+        idestabelecimento: 1,
+      };
+      const response = await userService.saveUserRegisterAndAuthentication(register)
+
+      if (response) {
+        setAuthToken(JSON.stringify(response.data));
+      }
+
+      console.log(JSON.stringify(data)); 
+    } catch (error) {
+      
+    }
   };
+
+  useEffect(() => {
+    async function loadUserStorageData() {
+      try {
+        const currentUser = await GoogleSignin.getCurrentUser();
+
+        if (currentUser && currentUser.user) {
+          setValue('nome', currentUser.user.name || '');
+          setValue('cidade', 'Itambé');
+          setValue('email', currentUser.user.email);
+          setIsLoading(false); 
+        }
+      } catch (error) {
+        console.error('Erro ao carregar informações do usuário do Google:', error);
+        setIsLoading(false);
+      }
+    }
+
+    loadUserStorageData();
+  }, [setValue]); 
+
+  if (isLoading) {
+    return (
+      <Loading />
+    );
+  }
   
 
   return (
@@ -109,25 +160,13 @@ export const UserRegistration = () => {
         />
         <Controller 
           control={control}
-          name="login"
+          name="email"
           render={({field: {onChange, value}}) => (
             <Input 
-              title="Login"
+              title="Email"
               value={value}
               onChangeText={onChange}
               editable={false}
-            />
-          )}
-        />
-        <Controller 
-          control={control}
-          name="password"
-          render={({field: {onChange, value}}) => (
-            <Input 
-              title="Senha"
-              value={value}
-              onChangeText={onChange}
-              secureTextEntry={true}
             />
           )}
         />
