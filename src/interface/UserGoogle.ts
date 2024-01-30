@@ -3,4 +3,5 @@ export interface UserGoogle {
   name: string;
   email: string;
   photo?: string;
+  idToken: string;
 }

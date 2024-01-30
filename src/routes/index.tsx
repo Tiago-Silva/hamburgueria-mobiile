@@ -6,7 +6,9 @@ import { AppRoutes  } from './app.routes';
 
 import { useAuth } from '../hooks/auth';
 import { RegistrationUserRoutes } from './registrationUser.routes';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStorage from 'expo-secure-store';
+
+const storageKey = process.env.EXPO_PUBLIC_USER_STORAGE_KEY;
 
 
 export const Routes = () => {
@@ -18,7 +20,7 @@ export const Routes = () => {
       if (token) {
         setTokenStorage(token);
       } else {
-        const storageToken = await AsyncStorage.getItem('@alonsao_burguer:token');
+        const storageToken = await SecureStorage.getItem(storageKey + 'token');
         setTokenStorage(JSON.stringify(storageToken));
       }
     }
@@ -32,14 +34,14 @@ export const Routes = () => {
   
   return(
     <NavigationContainer>
-      {/* {userGoogle.id 
+      {userGoogle.id 
         ? tokenStorage && tokenStorage.length > 4 ? <AppRoutes /> : <RegistrationUserRoutes />
         : <AuthRoutes />
-      } */}
-
-      {
-        tokenStorage && tokenStorage.length > 4 ? <AppRoutes /> : <RegistrationUserRoutes />
       }
+
+      {/* {
+        tokenStorage && tokenStorage.length > 4 ? <AppRoutes /> : <RegistrationUserRoutes />
+      } */}
     </NavigationContainer>
   );
 }

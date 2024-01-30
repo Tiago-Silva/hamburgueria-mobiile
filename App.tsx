@@ -7,6 +7,9 @@ import { ThemeProvider } from 'styled-components';
 import theme from './src/global/theme';
 import { Routes } from './src/routes';
 import { AuthProvider } from './src/hooks/auth';
+import * as SecureStorage from 'expo-secure-store';
+
+const storageKey = process.env.EXPO_PUBLIC_USER_STORAGE_KEY;
 
 
 export default function App() {
@@ -23,6 +26,7 @@ export default function App() {
       // await AsyncStorage.removeItem('itemList');
 
       await AsyncStorage.clear();
+      // await SecureStorage.deleteItemAsync(storageKey + 'userGoogle');
 
       // await AsyncStorage.setItem('operationDone', 'true');
       // if (!flag) {

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { 
   Container, 
   Header, 
-  LoadContainer, 
   Title, 
   WrapperInputs 
 } from "./styles";
@@ -12,7 +11,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { userRegistrationSchema } from "../../interface/userRegistrationSchema";
 import { z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStorage from 'expo-secure-store';
 import { userService } from "../../services/userService";
 import { UserRegisterData } from '../../interface/UserRegisterData';
 import { useAuth } from "../../hooks/auth";
@@ -21,13 +20,14 @@ import {
 } from '@react-native-google-signin/google-signin';
 import { Loading } from "../../components/Loading";
 
+const storageKey = process.env.EXPO_PUBLIC_USER_STORAGE_KEY;
+
 
 export type userRegistrationData = z.infer<typeof userRegistrationSchema>;
 
 export const UserRegistration = () => {
-  const { setAuthToken } = useAuth();
+  const { setAuthToken, userGoogle } = useAuth();
 
-  const userStorageKey = '@alonsao_burguer:';
   const [isLoading, setIsLoading] = useState(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
@@ -46,12 +46,13 @@ export const UserRegistration = () => {
         email: data.email,
         type: 'MOBILLE',
         idestabelecimento: 1,
+        googleAccessToken: userGoogle?.idToken || '',
       };
       const response = await userService.saveUserRegisterAndAuthentication(register)
 
       if (response) {
         setAuthToken(JSON.stringify(response.data));
-        await AsyncStorage.setItem(userStorageKey + 'token', JSON.stringify(response.data));
+        await SecureStorage.setItem(storageKey + 'token', JSON.stringify(response.data));
       }
 
     } catch (error) {
@@ -176,7 +177,7 @@ export const UserRegistration = () => {
               title="Email"
               value={value}
               onChangeText={onChange}
-              // editable={false}
+              editable={false}
             />
           )}
         />

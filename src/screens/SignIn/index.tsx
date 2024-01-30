@@ -18,13 +18,11 @@ import { Alert } from 'react-native';
 import {
   GoogleSignin,
 } from '@react-native-google-signin/google-signin';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Loading } from '../../components/Loading';
 
 export const SignIn = () => {
   const { signInWithGoogle, signInWithApple, setAuthUserGoogle } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
-  const userStorageKey = '@alonsao_burguer:';
 
   async function handleSignInWithGoogle() {
     try {
@@ -58,12 +56,13 @@ export const SignIn = () => {
           // Obtém informações sobre o usuário atualmente autenticado, se houver
           const userInfo = await GoogleSignin.signInSilently();
           if (userInfo && userInfo.user) {
-            // console.log(userInfo);
+            
             setAuthUserGoogle({
               id: userInfo.user.id,
               name: userInfo.user.name || '',
               email: userInfo.user.email,
-              photo: userInfo.user.photo || '', 
+              photo: userInfo.user.photo || '',
+              idToken: userInfo.idToken || '',
             })
             setIsLoading(false);
           } else {

@@ -13,8 +13,11 @@ import {
 const { CLIENT_ID } = process.env;
 const { REDIRECT_URI } = process.env;
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStorage from 'expo-secure-store';
 import { UserGoogle } from '../interface/UserGoogle';
+
+const googleClientId = process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID;
+const storageKey = process.env.EXPO_PUBLIC_USER_STORAGE_KEY;
 
 
 interface AuthProviderProps {
@@ -41,7 +44,8 @@ const AuthContext = createContext({} as IAuthContextData);
 
 GoogleSignin.configure({
   scopes: ['https://www.googleapis.com/auth/drive.readonly'], // what API you want to access on behalf of the user, default is email and profile
-  webClientId: '321326004523-747mmqn53g8bqt82tdl076phq2l5olkp.apps.googleusercontent.com', 
+  webClientId: googleClientId,
+  offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
 });
 
 const AuthProvider = ({ children }: AuthProviderProps ) => {
@@ -50,23 +54,21 @@ const AuthProvider = ({ children }: AuthProviderProps ) => {
 
   const [userStorageLoading, setUserStorageLoading] = useState(true);
 
-  const userStorageKey = '@alonsao_burguer:';
-
 
   async function signInWithGoogle() {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-
       if (userInfo && userInfo.user) {
         setUserGoogleInfo({
           id: userInfo.user.id,
           name: userInfo.user.name || '',
           email: userInfo.user.email,
-          photo: userInfo.user.photo || '', 
+          photo: userInfo.user.photo || '',
+          idToken: userInfo.idToken || '',
         })
 
-        await AsyncStorage.setItem(userStorageKey + 'userGoogle', JSON.stringify(userGoogleInfo));
+        await SecureStorage.setItem(storageKey + 'userGoogle', JSON.stringify(userGoogleInfo));
       }
 
     } catch (error) {
@@ -120,9 +122,16 @@ const AuthProvider = ({ children }: AuthProviderProps ) => {
   }
 
   useEffect(() => {
+    async function saveUserGoogleInfo() {
+      await SecureStorage.setItem(storageKey + 'userGoogle', JSON.stringify(userGoogleInfo));
+    }
+    saveUserGoogleInfo();
+  }, [userGoogleInfo]);
+
+  useEffect(() => {
     async function loadUserStorageDate() {
-      const userStoraged = await AsyncStorage.getItem(userStorageKey + 'userGoogle');
-      const tokenStoraged = await AsyncStorage.getItem(userStorageKey + 'token');
+      const userStoraged = await SecureStorage.getItem(storageKey + 'userGoogle');
+      const tokenStoraged = await SecureStorage.getItem(storageKey + 'token');
       
       if(userStoraged){
         const userLogged = JSON.parse(userStoraged) as UserGoogle;

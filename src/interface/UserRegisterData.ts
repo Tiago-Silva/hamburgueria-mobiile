@@ -8,4 +8,5 @@ export interface UserRegisterData {
   email: string;
   type: string;
   idestabelecimento: number;
+  googleAccessToken?: string;
 }

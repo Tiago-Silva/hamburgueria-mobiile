@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { API_URL } from './apiConfig';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-// import { useAuth } from '../hooks/auth';
+import * as SecureStorage from 'expo-secure-store';
+
+const storageKey = process.env.EXPO_PUBLIC_USER_STORAGE_KEY;
 
 // Axios para rotas autenticadas
 const authenticatedAxiosInstance = axios.create({
@@ -13,7 +14,7 @@ authenticatedAxiosInstance.interceptors.request.use(
   async (config) => {
     // const { token } = useAuth();
     // Recupera o token do AsyncStorage
-    const tokenStorage = await AsyncStorage.getItem('@alonsao_burguer:token');
+    const tokenStorage = await SecureStorage.getItem(storageKey + 'token');
 
     // Adiciona o token ao cabeçalho da requisição, se existir
     if (tokenStorage) {
