@@ -7,7 +7,6 @@ import React, {
 } from 'react';
 import {
   GoogleSignin,
-  GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 
@@ -70,7 +69,6 @@ const AuthProvider = ({ children }: AuthProviderProps ) => {
         await AsyncStorage.setItem(userStorageKey + 'userGoogle', JSON.stringify(userGoogleInfo));
       }
 
-      console.log({ userInfo });
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log('{user cancelled the login flow}' + error.message);
@@ -138,40 +136,6 @@ const AuthProvider = ({ children }: AuthProviderProps ) => {
 
       setUserStorageLoading(false);
     }
-
-    // const checkCurrentUser = async () => {
-    //   try {
-    //     // Verifica se há serviços do Google Play disponíveis
-    //     await GoogleSignin.hasPlayServices();
-
-    //     // Verifica se há um usuário autenticado anteriormente
-    //     const hasPreviousSignIn = await GoogleSignin.isSignedIn();
-
-    //     if (hasPreviousSignIn) {
-    //       // Obtém informações sobre o usuário atualmente autenticado, se houver
-    //       const userInfo = await GoogleSignin.signInSilently();
-    //       if (userInfo && userInfo.user) {
-    //         // console.log(userInfo);
-    //         setUserGoogleInfo({
-    //           id: userInfo.user.id,
-    //           name: userInfo.user.name || '',
-    //           email: userInfo.user.email,
-    //           photo: userInfo.user.photo || '', 
-    //         })
-    //         await AsyncStorage.setItem(userStorageKey + 'userGoogle', JSON.stringify(userGoogleInfo));
-            
-    //       } else {
-    //         console.log('Nenhum usuário autenticado');
-    //       }
-    //     } else {
-    //       console.log('Nenhum usuário autenticado anteriormente');
-    //     }
-    //   } catch (error) {
-    //     console.error('Erro ao verificar usuário autenticado:');
-    //   }
-    // };
-
-    // checkCurrentUser();
     loadUserStorageDate();
   },[]);
   

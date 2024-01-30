@@ -9,7 +9,7 @@ export const RegistrationUserRoutes = () => {
   return(
     <Navigator>
       <Screen
-        name="SignIn"
+        name="Cadastro"
         component={UserRegistration}
         options={{ headerShown: false }}
       />

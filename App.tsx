@@ -7,7 +7,6 @@ import { ThemeProvider } from 'styled-components';
 import theme from './src/global/theme';
 import { Routes } from './src/routes';
 import { AuthProvider } from './src/hooks/auth';
-import { UserRegistration } from './src/screens/UserRegistration';
 
 
 export default function App() {
@@ -21,7 +20,7 @@ export default function App() {
     try {
       // const flag = await AsyncStorage.getItem('operationDone');
 
-      await AsyncStorage.removeItem('itemList');
+      // await AsyncStorage.removeItem('itemList');
 
       await AsyncStorage.clear();
 
@@ -55,8 +54,6 @@ export default function App() {
             barStyle="light-content"
           />
           <Routes />
-
-          {/* <UserRegistration /> */}
 
         </AuthProvider>
             

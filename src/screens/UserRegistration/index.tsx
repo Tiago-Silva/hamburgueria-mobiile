@@ -27,13 +27,14 @@ export type userRegistrationData = z.infer<typeof userRegistrationSchema>;
 export const UserRegistration = () => {
   const { setAuthToken } = useAuth();
 
-  // const [userGoogleInfo, setUserGoogleInfo] = useState<UserGoogle>({} as UserGoogle);
   const userStorageKey = '@alonsao_burguer:';
   const [isLoading, setIsLoading] = useState(true);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  const { control, handleSubmit, setValue } = useForm<userRegistrationData>({
+  const { control, handleSubmit, setValue, watch } = useForm<userRegistrationData>({
     resolver: zodResolver(userRegistrationSchema)
   });
+  const watchedFields = watch(['nome', 'sobreNome', 'telefone', 'cidade', 'bairro', 'endereco', 'email']);
 
   const handleOnSubmit: SubmitHandler<userRegistrationData> = async (data) => {
     try {
@@ -50,11 +51,13 @@ export const UserRegistration = () => {
 
       if (response) {
         setAuthToken(JSON.stringify(response.data));
+        await AsyncStorage.setItem(userStorageKey + 'token', JSON.stringify(response.data));
       }
 
-      console.log(JSON.stringify(data)); 
     } catch (error) {
-      
+      setIsButtonDisabled(true);
+    } finally {
+      setIsButtonDisabled(true);
     }
   };
 
@@ -76,13 +79,20 @@ export const UserRegistration = () => {
     }
 
     loadUserStorageData();
-  }, [setValue]); 
+  }, [setValue]);
 
-  if (isLoading) {
-    return (
-      <Loading />
-    );
-  }
+  useEffect(() => {
+    const isEveryFieldFilled = watchedFields.every((value) => !!value);
+    if (isEveryFieldFilled) {
+      setIsButtonDisabled(false);
+    }
+  }, [watchedFields]);
+
+  // if (isLoading) {
+  //   return (
+  //     <Loading />
+  //   );
+  // }
   
 
   return (
@@ -166,7 +176,7 @@ export const UserRegistration = () => {
               title="Email"
               value={value}
               onChangeText={onChange}
-              editable={false}
+              // editable={false}
             />
           )}
         />
@@ -175,6 +185,8 @@ export const UserRegistration = () => {
           borderColor="#000000"
           title="Confirmar"
           onPress={handleSubmit(handleOnSubmit)}
+          disabled={isButtonDisabled}
+          isDisabled={isButtonDisabled}
         />
       </WrapperInputs>
       
