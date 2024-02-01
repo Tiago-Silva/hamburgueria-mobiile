@@ -26,7 +26,7 @@ const storageKey = process.env.EXPO_PUBLIC_USER_STORAGE_KEY;
 export type userRegistrationData = z.infer<typeof userRegistrationSchema>;
 
 export const UserRegistration = () => {
-  const { setAuthToken, userGoogle } = useAuth();
+  const { setAuthToken, userGoogle, token } = useAuth();
 
   const [isLoading, setIsLoading] = useState(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -56,7 +56,7 @@ export const UserRegistration = () => {
       }
 
     } catch (error) {
-      setIsButtonDisabled(true);
+      // setIsButtonDisabled(true);
     } finally {
       setIsButtonDisabled(true);
     }
@@ -85,7 +85,9 @@ export const UserRegistration = () => {
   useEffect(() => {
     const isEveryFieldFilled = watchedFields.every((value) => !!value);
     if (isEveryFieldFilled) {
-      setIsButtonDisabled(false);
+      if (token.length < 4) {
+        setIsButtonDisabled(false);
+      }
     }
   }, [watchedFields]);
 

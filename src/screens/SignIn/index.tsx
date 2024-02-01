@@ -19,10 +19,19 @@ import {
   GoogleSignin,
 } from '@react-native-google-signin/google-signin';
 import { Loading } from '../../components/Loading';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
+
+type RootStackParamList = {
+  Registration: undefined;
+  // Adicione outras rotas aqui...
+};
+type NavigationProp = StackNavigationProp<RootStackParamList, 'Registration'>;
 
 export const SignIn = () => {
-  const { signInWithGoogle, signInWithApple, setAuthUserGoogle } = useAuth();
+  const { signInWithGoogle, signInWithApple, setAuthUserGoogle, userGoogle } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
+  const navigation = useNavigation<NavigationProp>();
 
   async function handleSignInWithGoogle() {
     try {
@@ -30,6 +39,10 @@ export const SignIn = () => {
     } catch (error) {
       console.log(error);
       Alert.alert('Não foi possível conectar a conta Google');
+    } finally {
+      if (userGoogle.id) {
+        navigation.navigate('Registration');
+      }
     }
   }
 

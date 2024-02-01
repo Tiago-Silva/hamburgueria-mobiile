@@ -1,17 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Platform } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from 'styled-components';
 import { Products } from '../screens/Products';
 import { Cart } from '../screens/Cart';
+import { StackNavigationProp, createStackNavigator } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../hooks/auth';
 
-const { Navigator, Screen } = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
+
+type RootStackParamList = {
+  Auth: undefined;
+  Registration: undefined;
+  // Adicione outras rotas aqui...
+};
+
+type NavigationProp = StackNavigationProp<RootStackParamList, 'Auth'>;
 
 export function AppRoutes() {
+  const navigation = useNavigation<NavigationProp>();
+  const { userGoogle, token } = useAuth();
+
+  useEffect(() => {
+    if (!userGoogle || userGoogle.id === undefined || userGoogle.id === null) {
+      navigation.navigate('Auth');
+    } else if (!token) {
+      navigation.navigate('Registration');
+    }
+  }, [userGoogle, token]);
 
   return (
-    <Navigator
+    <Tab.Navigator
       screenOptions={
         {
           headerShown: false,
@@ -25,7 +46,7 @@ export function AppRoutes() {
         }
       }
     >
-      <Screen 
+      <Tab.Screen 
         name='Produtos'
         component={Products}
         options={
@@ -41,7 +62,7 @@ export function AppRoutes() {
         }
       />
 
-      <Screen 
+      <Tab.Screen 
         name='Pedidos'
         component={Products}
         options={
@@ -57,7 +78,7 @@ export function AppRoutes() {
         }
       />
 
-      <Screen 
+      <Tab.Screen 
         name='Carrinho'
         component={Cart}
         options={
@@ -72,6 +93,6 @@ export function AppRoutes() {
           }
         }
       />
-    </Navigator>
+    </Tab.Navigator>
   );
 }
