@@ -11,14 +11,9 @@ export const userService = {
   saveUserRegisterAndAuthentication: async (
     userData: UserRegisterData
   ): Promise<AxiosResponse<string>> => {
-    try {
-      const response = await publicAxiosInstance.post('/auth/register', userData);
-      await SecureStorage.setItem(storageKey + 'token', JSON.stringify(response.data));
-      return response;
-    } catch (error) {
-      console.error('Erro ao salvar usuário e autenticação:', error);
-      throw error;
-    }
+    const response = await publicAxiosInstance.post('/auth/register', userData);
+    await SecureStorage.setItem(storageKey + 'token', JSON.stringify(response.data));
+    return response;
   }
 
 }
