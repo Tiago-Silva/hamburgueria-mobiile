@@ -11,11 +11,14 @@ import { useFocusEffect } from "@react-navigation/native";
 import { PaymentCard } from "../../components/PaymentCard";
 import { pedidoservice } from '../../services/pedidoService';
 import { ItemEntity } from "../../interface/ItemEntity";
-
+import { tokenService } from "../../services/tokenService";
+import { TokenData } from "../../interface/tokenData";
+import { ItemRequestDTO } from "../../interface/itemRequestDTO";
 
 export const Cart = () => {
   const [itemList, setItemList] = useState<ItemData[]>([]);
   const [subTotal, setSubTotal] = useState<number>(0);
+  const [tokenData, setTokenData] = useState<TokenData>({} as TokenData);
 
   const retrieveItemList = async () => {
     setItemList(await itemService.retrieveItemList());
@@ -33,11 +36,11 @@ export const Cart = () => {
     setSubTotal((prev) => prev - amount);
   };
 
-  const handleSavePedido = (paymentType: string) => {
-    const newList: ItemEntity[] = [];
+  const handleSavePedido = async (paymentType: string) => {
+    const newList: ItemRequestDTO[] = [];
 
     itemList.forEach((item) => {
-      let newObject: ItemEntity = {
+      let newObject: ItemRequestDTO = {
         quantidade: item.quantidade,
         descricao: item.descricao,
         idproduto: item.idproduto,
@@ -47,7 +50,7 @@ export const Cart = () => {
 
     const newOrder = pedidoservice.creationPedido(
       (subTotal + 5),
-      '3afc5f12-6137-480e-af1e-5dbd6531b40b',
+      tokenData.idUser,
       paymentType,
       newList
     )
@@ -71,6 +74,16 @@ export const Cart = () => {
     setSubTotal(sub);
 
   }, [itemList]);
+
+  useEffect(() => {
+    async function loadTokenData() {
+      const data = await tokenService.retrieveTokenData();
+      if (data){
+        setTokenData(data);
+      }
+    }
+    loadTokenData();
+  }, []);
 
   return (
     <Container>

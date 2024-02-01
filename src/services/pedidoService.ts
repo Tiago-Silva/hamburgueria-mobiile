@@ -1,9 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ItemData } from "../interface/ItemData"
 import { PedidoData } from "../interface/PedidoData"
-import axios from "axios";
+import { AxiosResponse } from 'axios';
+import { authenticatedAxiosInstance } from './axiosConfig';
 import { ItemEntity } from "../interface/ItemEntity";
 import { itemService } from "./itemService";
+import { ItemRequestDTO } from "../interface/itemRequestDTO";
 
 
 export const pedidoservice = {
@@ -12,13 +14,13 @@ export const pedidoservice = {
     total: number,
     iduser: string,
     tipoPagamento: string,
-    items: Array<ItemEntity>,
+    items: Array<ItemRequestDTO>,
   ): PedidoData => {
     return {
       total: total,
       iduser: iduser,
       tipoPagamento: tipoPagamento,
-      items: items,
+      itemRequestDTOS: items,
     }
   },
 
@@ -26,7 +28,7 @@ export const pedidoservice = {
     newOrder: PedidoData
   ) => {
     try {
-      const response = await axios.post('http://192.168.20.20:8080/pedido/save', newOrder);
+      const response = await authenticatedAxiosInstance.post('/pedido/save', newOrder);
       itemService.deleteListItem();
     } catch (error) {
       console.error('Erro ao salvar o pedido:', error);
@@ -42,7 +44,7 @@ export const pedidoservice = {
   
       if (objectData) {
         const novoPedido: PedidoData = JSON.parse(objectData);
-        pedido.items = novoPedido.items;
+        pedido.itemRequestDTOS = novoPedido.itemRequestDTOS;
       }
 
       await AsyncStorage.setItem('pedidoObject', JSON.stringify(pedido));
