@@ -12,7 +12,7 @@ export const userService = {
     userData: UserRegisterData
   ): Promise<AxiosResponse<string>> => {
     const response = await publicAxiosInstance.post('/auth/register', userData);
-    await SecureStorage.setItem(storageKey + 'token', JSON.stringify(response.data));
+    // await SecureStorage.setItem(storageKey + 'token', JSON.stringify(response.data));
     return response;
   }
 

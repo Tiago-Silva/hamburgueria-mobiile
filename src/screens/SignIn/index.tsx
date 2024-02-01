@@ -40,8 +40,11 @@ export const SignIn = () => {
       console.log(error);
       Alert.alert('Não foi possível conectar a conta Google');
     } finally {
-      if (userGoogle.id) {
-        navigation.navigate('Registration');
+      if (userGoogle.id && userGoogle.id.length > 2) {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Registration' }],
+        });
       }
     }
   }

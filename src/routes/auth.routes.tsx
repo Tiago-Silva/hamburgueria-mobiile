@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { StackNavigationProp, createStackNavigator } from '@react-navigation/stack';
 
 import { SignIn } from '../screens/SignIn';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useAuth } from '../hooks/auth';
-import * as SecureStorage from 'expo-secure-store';
 import { useNavigation } from '@react-navigation/native';
 
 const storageKey = process.env.EXPO_PUBLIC_USER_STORAGE_KEY;
@@ -26,9 +24,15 @@ export const AuthRoutes = () => {
 
   useEffect(() => {
     if (userGoogle.id && userGoogle.id.length > 2 && token && token.length > 4) {
-      navigation.navigate('App');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'App' }],
+      });
     } else if (userGoogle.id && userGoogle.id.length > 2) {
-      navigation.navigate('Registration');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Registration' }],
+      });
     }
   }, [userGoogle, token]);
 

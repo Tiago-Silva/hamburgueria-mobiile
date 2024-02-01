@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { Platform } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useTheme } from 'styled-components';
 import { Products } from '../screens/Products';
 import { Cart } from '../screens/Cart';
-import { StackNavigationProp, createStackNavigator } from '@react-navigation/stack';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../hooks/auth';
 
@@ -25,9 +24,15 @@ export function AppRoutes() {
 
   useEffect(() => {
     if (!userGoogle || userGoogle.id === undefined || userGoogle.id === null) {
-      navigation.navigate('Auth');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Auth' }],
+      });
     } else if (!token) {
-      navigation.navigate('Registration');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Registration' }],
+      });
     }
   }, [userGoogle, token]);
 

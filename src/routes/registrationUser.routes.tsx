@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { StackNavigationProp, createStackNavigator } from '@react-navigation/stack';
 import { UserRegistration } from '../screens/UserRegistration';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../hooks/auth';
 
@@ -22,9 +21,15 @@ export const RegistrationUserRoutes = () => {
 
   useEffect(() => {
     if (userGoogle.id && userGoogle.id.length > 2 && token && token.length > 4) {
-      navigation.navigate('App');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'App' }],
+      });
     } else if (!userGoogle || userGoogle.id === undefined || userGoogle.id === null || userGoogle.id.length < 2) {
-      navigation.navigate('Auth');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Auth' }],
+      });
     }
   }, [userGoogle, token]);
 
