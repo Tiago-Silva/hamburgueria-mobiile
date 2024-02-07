@@ -27,7 +27,7 @@ export const OrderCard = ({
   return (
     <Container>
       <Title>
-        #{order.idpedido}
+        Número do pedido: #{order.idpedido}
       </Title>
 
       <WrapperAmount onPress={() => handleItems(order.idpedido)}>

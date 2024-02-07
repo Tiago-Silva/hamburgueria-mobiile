@@ -4,14 +4,18 @@ import styled from "styled-components/native";
 import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
-    background-color: ${({ theme }) => theme.colors.shape};
+    background-color: ${({ theme }) => theme.colors.background_header};
     border-radius: 5px;
 
     padding: 17px 24px;
-    margin-bottom: 16px;
+    margin-top: 16px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
 `;
 
 export const Title = styled.Text`
+    color: ${({ theme }) => theme.colors.text};
     font-size: ${RFValue(14)}px;
 `;
 
