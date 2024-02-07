@@ -1,6 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ItemData } from "../interface/ItemData";
 import { ImageSourcePropType } from "react-native";
+import { AxiosResponse } from "axios";
+import { authenticatedAxiosInstance } from "./axiosConfig";
 
 
 export const itemService = {
@@ -152,6 +154,17 @@ export const itemService = {
     } catch (error) {
       console.error('Erro ao excluir dados do AsyncStorage: ', error);
     }
-  }
+  },
+
+  getItemByOrderId: async (
+    orderId: number
+  ): Promise<AxiosResponse<ItemData[]>> => {
+    const response = await authenticatedAxiosInstance.get('/item/getItemsByIdPedido', {
+      headers: {
+        idpedido: orderId
+      }
+    });
+    return response;
+  },
 
 }
