@@ -6,6 +6,7 @@ import { authenticatedAxiosInstance } from './axiosConfig';
 import { ItemEntity } from "../interface/ItemEntity";
 import { itemService } from "./itemService";
 import { ItemRequestDTO } from "../interface/itemRequestDTO";
+import { PedidoResponseDTO } from "../interface/PedidoResponseDTO";
 
 
 export const pedidoservice = {
@@ -56,5 +57,15 @@ export const pedidoservice = {
     }
   },
   
+  getPedidoByUserId: async (
+    userId: string
+  ): Promise<AxiosResponse<PedidoResponseDTO[]>> => {
+    const response = await authenticatedAxiosInstance.get('/pedido/getPedidosByUser', {
+      headers: {
+        iduser: userId
+      }
+    });
+    return response;
+  },
 
 }

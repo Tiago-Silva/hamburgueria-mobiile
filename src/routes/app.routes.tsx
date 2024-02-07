@@ -7,6 +7,7 @@ import { Cart } from '../screens/Cart';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../hooks/auth';
+import { Orders } from '../screens/Orders';
 
 const Tab = createBottomTabNavigator();
 
@@ -69,7 +70,7 @@ export function AppRoutes() {
 
       <Tab.Screen 
         name='Pedidos'
-        component={Products}
+        component={Orders}
         options={
           {
             tabBarIcon: (({ size, color }) =>
