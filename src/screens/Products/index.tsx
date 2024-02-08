@@ -11,6 +11,7 @@ import { HighLightCard } from "../../components/HighLightCard";
 import { productService } from "../../services/productService";
 import { itemService } from "../../services/itemService";
 import { useTheme } from "styled-components";
+import { Loading } from "../../components/Loading";
 
 const imagePaths: Record<string, ImageSourcePropType> = {
   Frame39: require("../../../assets/Frame39.png"),
@@ -26,6 +27,7 @@ export const Products = () => {
   const [promotions, setPromotions] = useState<ProductData[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSearcheCategory, setIsSearcheCategory] = useState(false);
 
   const theme = useTheme();
 
@@ -44,10 +46,13 @@ export const Products = () => {
       setProductList(response.data);
     } catch (error) {
       console.error('Error: ', error);
+    } finally {
+      setIsSearcheCategory(false);
     }
   };
 
   const retrieveProductsData = async (category: string) => {
+    setIsSearcheCategory(true);
     try {
       const storedData = await AsyncStorage.getItem('productsCategory/' + category);
       if (storedData !== null) {
@@ -58,6 +63,7 @@ export const Products = () => {
         }
 
         setProductList(JSON.parse(storedData));
+        setIsSearcheCategory(false);
       } else {
         fetchProductData(category);
       }
@@ -108,6 +114,8 @@ export const Products = () => {
           :
             <>
               <Header />
+
+              {isSearcheCategory && <Loading />}
 
               <HighLightCards
                 refreshControl={
