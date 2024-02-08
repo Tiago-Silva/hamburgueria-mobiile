@@ -54,8 +54,9 @@ export const UserRegistration = () => {
       const response = await userService.saveUserRegisterAndAuthentication(register)
 
       if (response) {
-        setAuthToken(JSON.stringify(response.data));
-        await SecureStorage.setItem(storageKey + 'token', JSON.stringify(response.data));
+        setAuthToken(JSON.stringify(response.data.token));
+        await SecureStorage.setItem(storageKey + 'token', JSON.stringify(response.data.token));
+        await SecureStorage.setItem(storageKey + 'refreshToken', JSON.stringify(response.data.refreshToken));
       }
 
     } catch (error) {

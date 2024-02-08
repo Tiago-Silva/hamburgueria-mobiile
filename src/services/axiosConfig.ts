@@ -19,7 +19,8 @@ authenticatedAxiosInstance.interceptors.request.use(
     // Adiciona o token ao cabeçalho da requisição, se existir
     if (tokenStorage) {
       const tokenObject = JSON.parse(tokenStorage);
-      config.headers.Authorization = `Bearer ${tokenObject.token}`;
+
+      config.headers.Authorization = `Bearer ${tokenObject}`;
     }
 
     return config;

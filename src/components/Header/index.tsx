@@ -32,6 +32,7 @@ export const Header = React.memo (() => {
     } finally {
       await SecureStorage.deleteItemAsync(storageKey + 'userGoogle');
       await SecureStorage.deleteItemAsync(storageKey + 'token');
+      await SecureStorage.deleteItemAsync(storageKey + 'refreshToken');
       setIsLoading(false);
       setAuthToken('');
       setAuthUserGoogle({'id': '', 'name': '', 'email': '', 'photo': '', 'idToken': ''});
