@@ -38,67 +38,71 @@ export function AppRoutes() {
   }, [userGoogle, token]);
 
   return (
-    <Tab.Navigator
-      screenOptions={
-        {
-          headerShown: false,
-          tabBarActiveTintColor: '#F6C015',
-          tabBarInactiveTintColor: '#969cB2',
-          tabBarLabelPosition: 'beside-icon',
-          tabBarStyle: {
-            height: 45,
-            paddingVertical: Platform.OS === 'ios' ? 20 : 0,
+    <>
+      {userGoogle && token ? (
+        <Tab.Navigator
+          screenOptions={
+            {
+              headerShown: false,
+              tabBarActiveTintColor: '#F6C015',
+              tabBarInactiveTintColor: '#969cB2',
+              tabBarLabelPosition: 'beside-icon',
+              tabBarStyle: {
+                height: 45,
+                paddingVertical: Platform.OS === 'ios' ? 20 : 0,
+              }
+            }
           }
-        }
-      }
-    >
-      <Tab.Screen 
-        name='Produtos'
-        component={Products}
-        options={
-          {
-            tabBarIcon: (({ size, color }) =>
-              <MaterialIcons 
-                name='add-shopping-cart'
-                size={size}
-                color={color}
-              />
-            )
-          }
-        }
-      />
-
-      <Tab.Screen 
-        name='Pedidos'
-        component={Orders}
-        options={
-          {
-            tabBarIcon: (({ size, color }) =>
-              <MaterialIcons 
-                name='attach-money'
-                size={size}
-                color={color}
-              />
-            )
-          }
-        }
-      />
-
-      <Tab.Screen 
-        name='Carrinho'
-        component={Cart}
-        options={
-          {
-            tabBarIcon: (({ size, color }) =>
-              <MaterialIcons 
-                name='shopping-cart'
-                size={size}
-                color={color}
-              />
-            )
-          }
-        }
-      />
-    </Tab.Navigator>
+        >
+          <Tab.Screen 
+            name='Produtos'
+            component={Products}
+            options={
+              {
+                tabBarIcon: (({ size, color }) =>
+                  <MaterialIcons 
+                    name='add-shopping-cart'
+                    size={size}
+                    color={color}
+                  />
+                )
+              }
+            }
+          />
+  
+          <Tab.Screen 
+            name='Pedidos'
+            component={Orders}
+            options={
+              {
+                tabBarIcon: (({ size, color }) =>
+                  <MaterialIcons 
+                    name='attach-money'
+                    size={size}
+                    color={color}
+                  />
+                )
+              }
+            }
+          />
+  
+          <Tab.Screen 
+            name='Carrinho'
+            component={Cart}
+            options={
+              {
+                tabBarIcon: (({ size, color }) =>
+                  <MaterialIcons 
+                    name='shopping-cart'
+                    size={size}
+                    color={color}
+                  />
+                )
+              }
+            }
+          />
+        </Tab.Navigator>
+      ) : null}
+    </>
   );
 }
