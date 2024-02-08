@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components/native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Platform } from "react-native";
 
 export const Container = styled.View`
@@ -92,4 +92,9 @@ export const HighLightCards = styled.ScrollView.attrs({
     width: 100%;
     position: absolute;
     margin-top: ${RFPercentage(13)}px;
+`;
+
+export const DefaultIcon = styled(MaterialCommunityIcons)`
+  font-size: ${RFValue(50)}px;
+  color: ${({ theme }) => theme.colors.text};
 `;

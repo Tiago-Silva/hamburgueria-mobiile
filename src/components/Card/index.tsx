@@ -2,6 +2,7 @@ import { ImageSourcePropType } from "react-native";
 import { 
   Amount, 
   Container, 
+  DefaultIcon, 
   IconAdd, 
   Imagem, 
   Title, 
@@ -60,7 +61,12 @@ export const Card = React.memo (({
           size={24}
         />
       </WrapperIcon>
-      <Imagem source={urlImage} />
+      {urlImage ?
+        <Imagem source={urlImage} />
+        :
+        <DefaultIcon name='food' />
+      }
+      
       <Title>{title}</Title>
       <Amount>
         {new Intl.NumberFormat('pt-BR', {

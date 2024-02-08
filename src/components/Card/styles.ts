@@ -1,7 +1,7 @@
 import { Platform, TouchableOpacity } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 export const Container = styled.View`
   width: ${RFPercentage(20)}px;
@@ -64,4 +64,9 @@ export const Title = styled.Text`
 export const Amount = styled.Text`
   color: ${({ theme }) => theme.colors.text};
   font-size: ${RFValue(14)}px;
+`;
+
+export const DefaultIcon = styled(MaterialCommunityIcons)`
+  font-size: ${RFValue(50)}px;
+  color: ${({ theme }) => theme.colors.text};
 `;

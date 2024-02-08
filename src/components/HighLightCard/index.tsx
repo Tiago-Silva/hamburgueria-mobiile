@@ -2,6 +2,7 @@ import { ImageSourcePropType } from "react-native";
 import { 
   Amount, 
   Container, 
+  DefaultIcon, 
   FooterCard, 
   IconAdd, 
   Imagem, 
@@ -63,8 +64,13 @@ export const  HighLightCard = React.memo (({
             size={24}
           />
         </WrapperIcon>
-
-        <Imagem source={urlImage} />
+        
+        {urlImage ?
+          <Imagem source={urlImage} />
+          :
+          <DefaultIcon name='food' />
+        }
+        
 
         <FooterCard>
           <Title>{title}</Title>
