@@ -19,7 +19,7 @@ export const tokenService = {
   
     if (tokenStorage) {
       const tokenObject = JSON.parse(tokenStorage);
-      const parts = tokenObject.token.split('.');
+      const parts = tokenObject.split('.');
       if (parts.length !== 3) {
         throw new Error('The token is invalid');
       }
