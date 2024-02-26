@@ -1,4 +1,3 @@
-import { ImageSourcePropType } from "react-native";
 import { 
   Amount, 
   Container, 
@@ -19,7 +18,7 @@ interface Props {
   idproduto: number;
   title: string;
   amount: number;
-  urlImage: ImageSourcePropType;
+  urlImage: string;
   descricao: string;
 }
 
@@ -66,7 +65,7 @@ export const  HighLightCard = React.memo (({
         </WrapperIcon>
         
         {urlImage ?
-          <Imagem source={urlImage} />
+          <Imagem source={{ uri: urlImage }} />
           :
           <DefaultIcon name='food' />
         }

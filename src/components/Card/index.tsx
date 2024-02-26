@@ -1,4 +1,3 @@
-import { ImageSourcePropType } from "react-native";
 import { 
   Amount, 
   Container, 
@@ -12,12 +11,13 @@ import {
 import React, { useEffect, useState } from "react";
 import { ItemData } from "../../interface/ItemData";
 import { itemService } from '../../services/itemService';
+import { useSelector } from 'react-redux';
 
 interface Props {
   idproduto: number;
   title: string;
   amount: number;
-  urlImage: ImageSourcePropType;
+  urlImage: string;
   descricao: string;
 }
 
@@ -29,6 +29,10 @@ export const Card = React.memo (({
   descricao
 }: Props) => {
   const [quantidade, setQuantidade] = useState<number>(0);
+
+  const cart = useSelector((state: any) => state);
+
+  console.log('cart: ', cart);
 
   const handleAddProduct = async () => {
     const newItem: ItemData = itemService.creationItem(1, title, amount, amount, idproduto, urlImage);
@@ -62,7 +66,7 @@ export const Card = React.memo (({
         />
       </WrapperIcon>
       {urlImage ?
-        <Imagem source={urlImage} />
+        <Imagem source={{uri: urlImage}} />
         :
         <DefaultIcon name='food' />
       }

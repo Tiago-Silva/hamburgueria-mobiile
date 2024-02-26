@@ -1,4 +1,3 @@
-import { ImageSourcePropType } from "react-native";
 import { 
   Amount,
   Container, 
@@ -18,7 +17,7 @@ interface Props {
   idproduto: number;
   title: string;
   amount: number;
-  urlImage: ImageSourcePropType;
+  urlImage: string;
   descricao?: string;
   quantidade: number;
   removeItem: (updatedItemsArray: ItemData[]) => void;
@@ -74,7 +73,7 @@ export const CartCard = React.memo (({
 
   return (
     <Container>
-      <Imagem source={urlImage} />
+      <Imagem source={{ uri: urlImage }} />
       <Title>{title}</Title>
       <Amount>
         {new Intl.NumberFormat('pt-BR', {

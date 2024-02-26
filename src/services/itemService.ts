@@ -1,6 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ItemData } from "../interface/ItemData";
-import { ImageSourcePropType } from "react-native";
 import { AxiosResponse } from "axios";
 import { authenticatedAxiosInstance } from "./axiosConfig";
 
@@ -13,7 +12,7 @@ export const itemService = {
     valor: number,
     total: number,
     idproduto: number,
-    urlImage: ImageSourcePropType
+    urlImage: string
   ): ItemData => {
     return {
       iditem: undefined,

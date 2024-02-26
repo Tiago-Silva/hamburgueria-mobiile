@@ -1,4 +1,4 @@
-import { ActivityIndicator, Alert, ImageSourcePropType, ListRenderItemInfo, RefreshControl } from "react-native";
+import { ActivityIndicator, ListRenderItemInfo, RefreshControl } from "react-native";
 import { Card } from "../../components/Card";
 import { Category } from "../../components/Category";
 import { Container, LoadContainer, WrapperProductsList } from "./styles";
@@ -13,12 +13,12 @@ import { itemService } from "../../services/itemService";
 import { useTheme } from "styled-components";
 import { Loading } from "../../components/Loading";
 
-const imagePaths: Record<string, ImageSourcePropType> = {
-  Frame39: require("../../../assets/Frame39.png"),
-  Promotion: require("../../../assets/snack.jpg"),
-  Coca: require("../../../assets/coca-cola.png"),
-  Shake: require("../../../assets/Milk-shake.png"),
-};
+// const imagePaths: Record<string, ImageSourcePropType> = {
+//   Frame39: require("../../../assets/Frame39.png"),
+//   Promotion: require("../../../assets/snack.jpg"),
+//   Coca: require("../../../assets/coca-cola.png"),
+//   Shake: require("../../../assets/Milk-shake.png"),
+// };
 
 export const Products = () => {
 
@@ -83,7 +83,7 @@ export const Products = () => {
       <Card 
         title={item.nome}
         amount={item.valor}
-        urlImage={imagePaths[item.urlImage]}
+        urlImage={item.urlImage}
         idproduto={item.idproduto}
         descricao={item.descricao}
       />
@@ -133,7 +133,7 @@ export const Products = () => {
                   <HighLightCard key={product.idproduto} 
                     title={product.nome}
                     amount={product.valor}
-                    urlImage={imagePaths[product.urlImage]}
+                    urlImage={product.urlImage}
                     idproduto={product.idproduto}
                     descricao={product.descricao}
                   />
