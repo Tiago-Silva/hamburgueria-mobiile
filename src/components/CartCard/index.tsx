@@ -9,77 +9,37 @@ import {
   TitleFooter,
   WrapperIcon,
 } from "./styles";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ItemData } from "../../interface/ItemData";
-import { itemService } from "../../services/itemService";
+import { useAppDispatch } from "../../store/modules/hooks";
+import { addItemToCart, reduceItemFromCart } from "../../store/modules/cart/actions";
 
 interface Props {
-  idproduto: number;
-  title: string;
-  amount: number;
-  urlImage: string;
-  descricao?: string;
-  quantidade: number;
-  removeItem: (updatedItemsArray: ItemData[]) => void;
-  handleAdd: (valor: number) => void;
-  handleSubtract: (amount: number) => void;
+  item: ItemData;
 }
 
-export const CartCard = React.memo (({
-  idproduto,
-  title,
-  amount,
-  urlImage,
-  descricao,
-  quantidade,
-  removeItem,
-  handleAdd,
-  handleSubtract
+export const CartCard: React.FC<Props> = React.memo (({
+  item
 }: Props) => {
-  const [quant, setQuantity] = useState<number>(quantidade);
+  const dispatch = useAppDispatch();
 
   const handleAddItem = async () => {
-    const newItem: ItemData = itemService.creationItem(1, title, amount, 1, idproduto, urlImage);
-    const retrievedItem: ItemData | null = await itemService.retrieveAddItemData(newItem);
-  
-    setQuantity(retrievedItem?.quantidade || 0);
-    handleAdd(amount);
+    dispatch(addItemToCart(item));
   };
 
   const handleSubtractItem = async () => {
-    const newItem: ItemData = itemService.creationItem(1, title, amount, 1, idproduto, urlImage);
-    const retrievedItem: ItemData | null = await itemService.retrieveSubtractItemData(newItem);
-  
-    setQuantity(retrievedItem?.quantidade || 0);
-    handleSubtract(amount);
+    dispatch(reduceItemFromCart(item));
   };
-
-  useEffect(() => {
-    if (quant <= 0) {
-      const handleDelete = async (idproduto: number) => {
-        try {
-          const updateArray: ItemData[] = await itemService.deleteObjectItem(idproduto);
-          // Use a updateArray conforme necessário
-          removeItem(updateArray);
-        } catch (error) {
-          throw new Error('Error ao deletar o item');
-          console.error('Erro ao deletar o item:', error);
-        }
-      };
-      
-      handleDelete(idproduto);
-    }
-  }, [quant])
 
   return (
     <Container>
-      <Imagem source={{ uri: urlImage }} />
-      <Title>{title}</Title>
+      <Imagem source={{ uri: item.urlImage }} />
+      <Title>{item.descricao}</Title>
       <Amount>
         {new Intl.NumberFormat('pt-BR', {
           style: 'currency',
           currency: 'BRL'
-        }).format(amount) }
+        }).format(item.valor) }
       </Amount>
       
       <Footer>
@@ -90,7 +50,7 @@ export const CartCard = React.memo (({
           />
         </WrapperIcon>
         
-        <TitleFooter>{quant}</TitleFooter>
+        <TitleFooter>{item.quantidade}</TitleFooter>
 
         <WrapperIcon onPress={handleAddItem}>
           <IconAdd

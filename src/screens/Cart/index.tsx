@@ -6,35 +6,22 @@ import { Container,
 } from "./styles";
 import { CartCard } from "../../components/CartCard";
 import { ItemData } from "../../interface/ItemData";
-import { itemService } from "../../services/itemService";
-import { useFocusEffect } from "@react-navigation/native";
 import { PaymentCard } from "../../components/PaymentCard";
 import { pedidoservice } from '../../services/pedidoService';
-import { ItemEntity } from "../../interface/ItemEntity";
 import { tokenService } from "../../services/tokenService";
 import { TokenData } from "../../interface/tokenData";
 import { ItemRequestDTO } from "../../interface/itemRequestDTO";
+import { useSelector } from "react-redux";
+import { IState } from "../../store/modules/cart/types";
+import { useAppDispatch } from "../../store/modules/hooks";
+import { clearCart } from "../../store/modules/cart/actions";
 
-export const Cart = () => {
-  const [itemList, setItemList] = useState<ItemData[]>([]);
+export const Cart: React.FC = () => {
   const [subTotal, setSubTotal] = useState<number>(0);
   const [tokenData, setTokenData] = useState<TokenData>({} as TokenData);
 
-  const retrieveItemList = async () => {
-    setItemList(await itemService.retrieveItemList());
-  };
-
-  const handleUpdateList = (updateListItem: ItemData[]) => {
-    setItemList(updateListItem);
-  }
-
-  const handleAdd = (amount: number) => {
-    setSubTotal((prev) => prev + amount);
-  };
-
-  const handleSubtract = (amount: number) => {
-    setSubTotal((prev) => prev - amount);
-  };
+  const itemList = useSelector<IState, ItemData[]>(state => state.cart.items);
+  const dispatch = useAppDispatch();
 
   const handleSavePedido = async (paymentType: string) => {
     const newList: ItemRequestDTO[] = [];
@@ -55,18 +42,12 @@ export const Cart = () => {
       newList
     )
     pedidoservice.save(newOrder);
-    setItemList([]);
+    dispatch(clearCart());
   };
-
-  useFocusEffect(
-    React.useCallback(() => {
-      retrieveItemList();
-    }, [])
-  );
 
   useEffect(() => {
     let sub  = 0;
-
+    
     itemList.forEach((item) => {
       sub = sub + item.total;
     });
@@ -97,14 +78,7 @@ export const Cart = () => {
         
         {itemList.map((item) =>
           <CartCard key={item.idproduto}
-            title={item.descricao}
-            amount={item.valor}
-            quantidade={item.quantidade}
-            urlImage={item.urlImage}
-            idproduto={item.idproduto}
-            removeItem={handleUpdateList}
-            handleAdd={handleAdd}
-            handleSubtract={handleSubtract}
+            item={item}
           />
         )}
         {itemList.length > 0 && (
