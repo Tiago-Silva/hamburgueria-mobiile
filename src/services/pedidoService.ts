@@ -1,9 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ItemData } from "../interface/ItemData"
 import { PedidoData } from "../interface/PedidoData"
 import { AxiosResponse } from 'axios';
 import { authenticatedAxiosInstance } from './axiosConfig';
-import { ItemEntity } from "../interface/ItemEntity";
 import { itemService } from "./itemService";
 import { ItemRequestDTO } from "../interface/itemRequestDTO";
 import { PedidoResponseDTO } from "../interface/PedidoResponseDTO";
@@ -16,12 +14,14 @@ export const pedidoservice = {
     iduser: string,
     tipoPagamento: string,
     items: Array<ItemRequestDTO>,
+    type: string
   ): PedidoData => {
     return {
       total: total,
       iduser: iduser,
       tipoPagamento: tipoPagamento,
       itemRequestDTOS: items,
+      type: type
     }
   },
 

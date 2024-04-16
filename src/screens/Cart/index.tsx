@@ -39,7 +39,8 @@ export const Cart: React.FC = () => {
       (subTotal + 5),
       tokenData.idUser,
       paymentType,
-      newList
+      newList,
+        "DELIVERY"
     )
     pedidoservice.save(newOrder);
     dispatch(clearCart());
