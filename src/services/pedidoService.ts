@@ -29,7 +29,7 @@ export const pedidoservice = {
     newOrder: PedidoData
   ) => {
     try {
-      const response = await authenticatedAxiosInstance.post('/pedido/save', newOrder);
+      await authenticatedAxiosInstance.post('/pedido/save', newOrder);
       itemService.deleteListItem();
     } catch (error) {
       console.error('Erro ao salvar o pedido:', error);

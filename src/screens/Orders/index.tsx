@@ -1,13 +1,13 @@
 
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import {
-  Container, 
-  ItemList, 
+  Container, ContentOrderList,
+  ItemList,
   ModalContainer,
-  ModalTitle,
-  WrapperModalContent, 
+  ModalTitle, OrderList,
+  WrapperModalContent,
 } from './styles';
 import { Header } from '../../components/Header';
 import { OrderCard } from '../../components/OrderCard/index';
@@ -19,6 +19,7 @@ import { ItemData } from '../../interface/ItemData';
 import { ItemCard } from '../../components/ItemCard';
 import { useFocusEffect } from '@react-navigation/native';
 import { Loading } from '../../components/Loading';
+import {ListRenderItemInfo} from "react-native";
 
 
 export const Orders = () => {
@@ -59,7 +60,16 @@ export const Orders = () => {
     }, [])
   );
 
-  const HandleRenderItem = ({ item }) => <ItemCard item={item} />;
+  const HandleRenderItem = ({ item }: ListRenderItemInfo<ItemData>) => <ItemCard item={item} />;
+
+  const HandlerRenderOrders = ({ item }: ListRenderItemInfo<PedidoResponseDTO>) => {
+    return (
+      <OrderCard
+        order={item}
+        handleItems={handleItems}
+      />
+    );
+  }
 
   return (
     <Container>
@@ -68,20 +78,28 @@ export const Orders = () => {
 
       {isLoading && <Loading />}
 
-      {orderList.map((order, index) => (
-        <OrderCard 
-          key={index}
-          order={order}
-          handleItems={handleItems}
+      <ContentOrderList>
+        <OrderList
+          data={orderList}
+          keyExtractor={(order: PedidoResponseDTO) => String(order.idpedido)}
+          renderItem={HandlerRenderOrders}
         />
-      ))}
+      </ContentOrderList>
+
+      {/*{orderList.map((order, index) => (*/}
+      {/*  <OrderCard */}
+      {/*    key={index}*/}
+      {/*    order={order}*/}
+      {/*    handleItems={handleItems}*/}
+      {/*  />*/}
+      {/*))}*/}
 
       <ModalContainer isVisible={isModalVisible} onBackdropPress={closeModal}>
         <WrapperModalContent>
           <ModalTitle>Veja os itens do seu pedido</ModalTitle>
           <ItemList 
             data={items}
-            keyExtractor={(item) => String(item.iditem)}
+            keyExtractor={(item: ItemData) => String(item.iditem)}
             renderItem={HandleRenderItem}
           />
         </WrapperModalContent>

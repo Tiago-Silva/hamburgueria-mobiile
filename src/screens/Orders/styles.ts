@@ -3,10 +3,21 @@ import Modal from 'react-native-modal';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { FlatList } from "react-native";
 import { ItemData } from "../../interface/ItemData";
+import {PedidoResponseDTO} from "../../interface/PedidoResponseDTO";
 
 
 export const Container = styled.View`
-  
+  flex: 1;
+`;
+
+export const ContentOrderList = styled.View`
+    flex: 1;
+`;
+
+export const OrderList = styled(FlatList as new () => FlatList<PedidoResponseDTO>).attrs({
+  showsVerticalScrollIndicator: true,
+})`
+
 `;
 
 export const ModalContainer = styled(Modal)`
