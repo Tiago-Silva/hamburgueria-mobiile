@@ -10,7 +10,6 @@ import {
   WrapperModalContent,
 } from './styles';
 import { Header } from '../../components/Header';
-import { OrderCard } from '../../components/OrderCard/index';
 import { PedidoResponseDTO } from '../../interface/PedidoResponseDTO';
 import { pedidoservice } from '../../services/pedidoService';
 import { tokenService } from '../../services/tokenService';
@@ -20,6 +19,7 @@ import { ItemCard } from '../../components/ItemCard';
 import { useFocusEffect } from '@react-navigation/native';
 import { Loading } from '../../components/Loading';
 import {ListRenderItemInfo} from "react-native";
+import {OrderCard} from "../../components/OrderCard";
 
 
 export const Orders = () => {

@@ -1,6 +1,4 @@
 import { ItemData } from "./ItemData";
-import { ItemEntity } from "./ItemEntity";
-import { ItemRequestDTO } from "./itemRequestDTO";
 
 
 export interface PedidoResponseDTO {

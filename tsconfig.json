@@ -3,5 +3,5 @@
   "compilerOptions": {
     "strict": true
   },
-  "include": ["src/global/styled.d.ts"]
+  "include": ["./src/global/styled.d.ts", "src/global/styled.d.ts"]
 }

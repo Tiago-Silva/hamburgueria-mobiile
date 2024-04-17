@@ -3,13 +3,10 @@ import { StatusBar, StyleSheet } from 'react-native';
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ThemeProvider } from 'styled-components';
-import theme from './src/global/theme';
 import { Routes } from './src/routes';
 import { AuthProvider } from './src/hooks/auth';
 import * as SecureStorage from 'expo-secure-store';
-import { Provider } from 'react-redux';
-import store from './src/store';
+import {Providers} from "./src/Providers/providers";
 
 const storageKey = process.env.EXPO_PUBLIC_USER_STORAGE_KEY;
 
@@ -49,30 +46,19 @@ export default function App() {
 
   return (
 
-    <ThemeProvider theme={theme}>
+      <Providers>
 
-      <GestureHandlerRootView style={{ flex: 1 }}>
+        <GestureHandlerRootView style={{ flex: 1 }}>
 
-        <Provider store={store}>
-
-          <AuthProvider>
-
-            <StatusBar 
+          <StatusBar
               backgroundColor='#2a2e34'
               barStyle="light-content"
-            />
-            <Routes />
+          />
+          <Routes />
 
-          </AuthProvider>
+        </GestureHandlerRootView>
 
-        </Provider>
-        
-            
-      </GestureHandlerRootView>
-
-    </ThemeProvider>
-    
-
+      </Providers>
   );
 }
 
