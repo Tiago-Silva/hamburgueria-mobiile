@@ -4,8 +4,6 @@ import { StatusBar, StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Routes } from './src/routes';
-import { AuthProvider } from './src/hooks/auth';
-import * as SecureStorage from 'expo-secure-store';
 import {Providers} from "./src/Providers/providers";
 
 const storageKey = process.env.EXPO_PUBLIC_USER_STORAGE_KEY;
